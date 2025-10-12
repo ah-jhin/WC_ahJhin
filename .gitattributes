@@ -1,2 +1,4 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+# C#는 윈도우 개행 고정
+*.cs text eol=crlf

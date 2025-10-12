@@ -1,0 +1,11 @@
+폰트 설정 (한글 가능한 폰트로 변경, 구글 Sans)
+https://fonts.google.com/noto/specimen/Noto+Sans+KR
+
+< 에셋스토어 >
+https://assetstore.unity.com/packages/2d/environments/pixel-skies-demo-background-pack-226622
+https://assetstore.unity.com/packages/2d/characters/pixel-adventure-1-155360
+https://assetstore.unity.com/packages/2d/textures-materials/pbr-materials-sampler-pack-40112
+https://assetstore.unity.com/packages/2d/textures-materials/abstract/warped-shooting-fx-195246
+https://assetstore.unity.com/packages/2d/textures-materials/sky/starfield-skybox-92717
+https://assetstore.unity.com/packages/2d/textures-materials/dynamic-space-background-lite-104606
+https://assetstore.unity.com/packages/2d/gui/icons/ux-flat-icons-free-202525
