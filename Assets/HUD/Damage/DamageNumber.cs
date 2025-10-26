@@ -1,28 +1,44 @@
-﻿// DamageNumber.cs
+﻿// DamageNumber.cs  ← 기존 파일 교체
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class DamageNumber : MonoBehaviour
 {
-	public TMP_Text label;           // 인스펙터로 연결
-	public float riseSpeed = 1.5f;   // 위로 떠오르는 속도
-	public float life = 0.6f;        // 표시 시간
+    public TMP_Text Label;      // 같은 오브젝트의 TMP(Text)를 가리켜야 함
+    public float RiseSpeed = 1.5f;
+    public float Life = 0.8f;
 
-	float _t;
+    CanvasGroup _cg;
+    Coroutine _co;
 
-	void OnEnable() { _t = 0f; }      // 재활용 시 타이머 리셋
+    void Awake()
+    {
+        if (!Label) Label = GetComponent<TMP_Text>();          // 자동 연결
+        _cg = GetComponent<CanvasGroup>();
+        if (!_cg) _cg = gameObject.AddComponent<CanvasGroup>(); // 페이드용
+    }
 
-	void Update()
-	{
-		_t += Time.deltaTime;
-		transform.position += Vector3.up * riseSpeed * Time.deltaTime; // 위로 이동
-		if (_t >= life) gameObject.SetActive(false);                   // 자동 비활성
-	}
+    public void Show(int amount, Color color)
+    {
+        if (!Label) return;
+        Label.text = amount.ToString();
+        Label.color = color;
+        if (_co != null) StopCoroutine(_co);
+        _co = StartCoroutine(Play());
+    }
 
-	// 숫자와 색 적용
-	public void Show(int dmg, Color c)
-	{
-		label.text = dmg.ToString();
-		label.color = c;
-	}
+    IEnumerator Play()
+    {
+        float t = 0f;
+        Vector3 start = transform.position;
+        while (t < Life)
+        {
+            t += Time.deltaTime;
+            transform.position = start + Vector3.up * (RiseSpeed * t);
+            _cg.alpha = 1f - t / Life;
+            yield return null;
+        }
+        gameObject.SetActive(false); // 풀로 복귀
+    }
 }

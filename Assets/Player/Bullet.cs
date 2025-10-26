@@ -1,85 +1,121 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// 발사체 전용 스크: 이동/수명/충돌만 담당한다.
-/// - 피해 수치는 반드시 발사 시점에 Inject()로 주입한다.
-/// - 주입이 없으면 테스트용 기본값을 1회 경고와 함께 사용한다.
-/// - 약점 판정은 태그 "WeakPoint"로 처리한다.
+/// 발사체(2D)
+/// - 무기에서 SetLifetime → Inject 순으로 호출해야 함
+/// - Inject 전에는 충돌을 비활성(armed=false)하여 잘못된 피격을 막음
+/// - 약점은 "보너스 더하기"로 처리
 /// </summary>
+[RequireComponent(typeof(Collider2D))]
 public class Bullet : MonoBehaviour
 {
-	[Header("수명/충돌")]
-	public float lifetime = 3f;           // 자동 파괴 시간
-	public string blockTag = "block";     // 벽 태그
+    [Header("수명(초) — SO에서 덮어씀")]
+    public float lifetime = 2.5f;         // 기본값. 무기에서 SetLifetime으로 재설정
 
-	[Header("테스트 기본값(주입 누락 대비)")]
-	public int defaultDamage = 1;         // 주입 없을 때만 사용
-	public float defaultWeakMultiplier = 1f;
+    [Header("디폴트 피해(비상용)")]
+    public int defaultDamage = 1;         // Inject 누락 시 사용할 최소값
 
-	// 런타임 주입될 값
-	private int _damage;
-	private float _weakMul = 1f;
-	private bool _hasInjected;            // 주입 여부
-	private static bool _warnedOnce;      // 콘솔 경고 1회만
-	public bool debugLog = false;		  // 디버그: 충돌 확인
+    // 내부 상태
+    int damage;                            // 기본 피해
+    int weakBonus;                         // 약점 보너스(+)
+    bool armed = false;                    // Inject 호출 전까지 비무장
+    bool warned = false;                   // 경고 1회용
 
-	void OnEnable()
-	{
-		// 수명 타이머 시작
-		if (lifetime > 0f) Destroy(gameObject, lifetime);
+    [Header("폭발(로켓 전용)")]
+    public bool aoeOnHit = false;          // true면 범위피해
+    public float aoeRadius = 2.5f;         // 반경(월드 단위)
+    public LayerMask aoeMask = ~0;         // 감지 레이어(기본 전체)
+    public GameObject explosionFx;         // 폭발 이펙트(선택)
+    public AudioClip explosionSfx;         // 폭발 SFX(선택)
+    Collider2D col;
+    void Awake()
+    {
+        col = GetComponent<Collider2D>();
+        if (col) col.enabled = false;     // ■ Inject 전 충돌 금지
+    }
 
-		// 디버그
-		if (debugLog) Debug.Log($"[Bullet] Spawn @ {transform.position} layer={gameObject.layer}");
-	}
+    void OnEnable()
+    {
+        // 프리팹 기본값으로도 동작. 무기에서 SetLifetime을 다시 호출하면 타이머 갱신됨.
+        CancelInvoke(nameof(Die));
+        if (lifetime > 0f) Invoke(nameof(Die), lifetime);
+    }
 
-	/// <summary>
-	/// 발사 직후 호출: 현재 무기의 피해/약점배율을 주입한다.
-	/// </summary>
-	public void Inject(int damage, float weakMultiplier)
+    /// <summary>
+    /// 무기에서 수명을 재설정한다.
+    /// </summary>
+    public void SetLifetime(float seconds)
+    {
+        lifetime = seconds;
+        CancelInvoke(nameof(Die));
+        if (lifetime > 0f) Invoke(nameof(Die), lifetime);
+    }
 
-	{
-		_damage = Mathf.Max(0, damage);
-		_weakMul = Mathf.Max(0f, weakMultiplier);
-		_hasInjected = true;
-	}
+    /// <summary>
+    /// 무기에서 피해/약점 보너스를 주입한다. 호출 시 충돌을 활성화(무장)한다.
+    /// </summary>
+    public void Inject(int baseDamage, int weakAdd)
+    {
+        damage = Mathf.Max(0, baseDamage);
+        weakBonus = Mathf.Max(0, weakAdd);
+        Arm();                              // ■ 무장 + 타이머 보강
+    }
 
-	private void OnTriggerEnter2D(Collider2D other)
-	{
-		// 약점 여부
-		bool isWeak = other.CompareTag("WeakPoint");
+    void Arm()
+    {
+        armed = true;
+        if (col) col.enabled = true;        // ■ 이제 충돌 허용
+        // 안전: 수명 타이머 재보장
+        CancelInvoke(nameof(Die));
+        if (lifetime > 0f) Invoke(nameof(Die), lifetime);
+    }
 
-		// 디버그
-		if (debugLog) Debug.Log($"[Bullet] Hit {other.name} tag={other.tag} layer={other.gameObject.layer}");
+    void Die()
+    {
+        if (this) Destroy(gameObject);
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!armed)
+        {
+            if (!warned) { Debug.LogWarning("[Bullet] Inject() 호출 전 충돌"); warned = true; }
+            return;
+        }
 
-		// 대상 찾기(IDamageable)
-		var target = other.GetComponentInParent<IDamageable>();
-		if (target != null)
-		{
-			// 주입 누락 시 기본값 사용 + 1회 경고
-			if (!_hasInjected)
-			{
-				if (!_warnedOnce)
-				{
-					Debug.LogWarning("[Bullet] 스탯 주입(Inject)이 없어 defaultDamage를 사용합니다. 발사 코드에서 Inject()를 호출하세요.");
-					_warnedOnce = true;
-				}
-				_damage = defaultDamage;
-				_weakMul = defaultWeakMultiplier;
-			}
+        // 약점 판정(태그로만)
+        bool isWeak = other.CompareTag("WeakPoint");
 
-			// 피해 전달
-			target.TakeDamage(_damage, isWeak, _weakMul);
+        if (aoeOnHit) // ★ 로켓 등
+        {
+            // 폭발 이펙트/SFX
+            if (explosionFx) Instantiate(explosionFx, transform.position, Quaternion.identity);
+            if (explosionSfx)
+            {
+                Vector3 p = Camera.main ? Camera.main.transform.position : transform.position;
+                AudioSource.PlayClipAtPoint(explosionSfx, p, 1f);
+            }
 
-			// 한 번 맞으면 제거
-			Destroy(gameObject);
-			return;
-		}
+            // 중복 타격 방지용
+            System.Collections.Generic.HashSet<IDamageable> hit = new System.Collections.Generic.HashSet<IDamageable>();
+            var cols = Physics2D.OverlapCircleAll(transform.position, aoeRadius, aoeMask);
+            foreach (var c in cols)
+            {
+                var t = c.GetComponent<IDamageable>();
+                if (t == null || hit.Contains(t)) continue;
 
-		// 벽 등과 충돌 시 제거
-		if (other.CompareTag(blockTag))
-		{
-			if (debugLog) Debug.Log("[Bullet] Destroy: damage or block");
-			Destroy(gameObject);
-		}
-	}
+                bool weakHere = c.CompareTag("WeakPoint"); // 범위 내 약점 콜라이더는 약점처리
+                t.TakeDamage(damage, weakHere, weakBonus);
+                hit.Add(t);
+            }
+        }
+        else // 단일 타격 탄
+        {
+            var target = other.GetComponent<IDamageable>();
+            if (target != null)
+                target.TakeDamage(damage, isWeak, weakBonus);
+        }
+
+        Die(); // 충돌 후 소멸
+    }
+
 }

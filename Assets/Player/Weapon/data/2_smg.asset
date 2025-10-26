@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06024bb0c1ea98b45be3081f3b99d2a5, type: 3}
+  m_Name: 2_smg
+  m_EditorClassIdentifier: Assembly-CSharp::WP_Data
+  displayName: "\uAE30\uAD00\uB2E8\uCD1D"
+  icon: {fileID: 21300000, guid: e5e49028b50de3743811b861edc0de68, type: 3}
+  minDamage: 1
+  maxDamage: 1
+  weakBonusMin: 1
+  weakBonusMax: 1
+  fireInterval: 0.09
+  bulletsPerShot: 1
+  spreadDeg: 8.8
+  bulletPrefab: {fileID: 6785224070344415373, guid: 69ac95405c029cd46a3f980094acfa6c, type: 3}
+  bulletSpeed: 25
+  bulletLifetime: 0.25
+  infiniteAmmo: 0
+  ammoInitial: 100
+  sfxShoot: {fileID: 8300000, guid: 9da555dbf289cc146bd81742786f4cd0, type: 3}

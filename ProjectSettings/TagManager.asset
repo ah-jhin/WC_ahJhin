@@ -11,6 +11,8 @@ TagManager:
   - Boss
   - WeakPoint
   - block
+  - Enemy
+  - pain
   layers:
   - Default
   - TransparentFX
@@ -19,9 +21,9 @@ TagManager:
   - Water
   - UI
   - PlayerBullet
-  - 
-  - 
-  - 
+  - EnemyBullet
+  - Enemy
+  - block
   - 
   - 
   - 
@@ -48,17 +50,20 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: BG_Far
+  - name: 1
     uniqueID: 2515312861
     locked: 0
-  - name: BG_Mid
+  - name: 2
     uniqueID: 2072582039
     locked: 0
-  - name: BG_Near
+  - name: 3
     uniqueID: 380514273
     locked: 0
-  - name: 1
+  - name: 4
     uniqueID: 329939819
+    locked: 0
+  - name: 5
+    uniqueID: 2791580705
     locked: 0
   m_RenderingLayers:
   - Default
