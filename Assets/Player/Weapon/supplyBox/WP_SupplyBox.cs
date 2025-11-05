@@ -121,7 +121,6 @@ public class WP_SupplyBox : MonoBehaviour
 
         // HUD 갱신
         ph.hud?.SetHP(ph.currentHP, ph.maxHP);
-        Debug.Log($"[Supply] Heal +{amount} ({before}->{ph.currentHP})");
         return true;
     }
     bool GiveWeapon(GameObject player, SupplyType t)
@@ -143,13 +142,10 @@ public class WP_SupplyBox : MonoBehaviour
     #pragma warning restore CS0618
     #endif
 
-        if (!mgr) { Debug.LogWarning("[Supply] WP_Manager 없음(루트/전역 탐색 실패)"); return false; }
 
         GameObject prefab = GetPrefabByType(t);
-        if (!prefab) { Debug.LogWarning($"[Supply] {t} 프리팹 미지정"); return false; }
 
         bool added = mgr.AddWeapon(prefab, select:true);
-        Debug.Log(added ? $"[Supply] {t} 지급 성공" : $"[Supply] {t} 지급 실패(빈 슬롯 없음?)");
         return added;
     }
 

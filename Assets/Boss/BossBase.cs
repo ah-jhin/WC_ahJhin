@@ -50,6 +50,7 @@ public class BossBase : MonoBehaviour, IDamageable
     public bool introInvincible = true;          // 충전 중 데미지 무시
     public bool introSuppressThreshold = true;   // 충전 중 임계치(색/BGM) 비활성
     bool _isChargingIntro = false;               // 내부 플래그
+    public bool IsIntroNoScore => _isChargingIntro && introInvincible;   // ★ 인트로(체력 충전) + 무적이면 true. 점수 가산도 막아야 하는 상태.
 
     // ─────────────────────────────────────────────────────────
     [Serializable]

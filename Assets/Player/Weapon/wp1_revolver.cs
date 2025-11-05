@@ -94,7 +94,7 @@ public class WP_Revolver : MonoBehaviour, IWeaponInfo
         if (data.sfxShoot)
         {
             Vector3 pos = Camera.main ? Camera.main.transform.position : transform.position; // 2D 청취 위치
-            AudioSource.PlayClipAtPoint(data.sfxShoot, pos, 0.66f);  // 무기 파괴와 무관하게 끝까지 재생
+            AudioSource.PlayClipAtPoint(data.sfxShoot, pos, 0.35f);  // 무기 파괴와 무관하게 끝까지 재생
         }
 
 

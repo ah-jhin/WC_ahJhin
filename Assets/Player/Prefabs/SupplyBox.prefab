@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4827794607274742974}
-  - component: {fileID: 2057588225542986011}
   - component: {fileID: 2996466237184685160}
+  - component: {fileID: 2057588225542986011}
   - component: {fileID: 2944980871450192091}
   - component: {fileID: -8433823338074253934}
   m_Layer: 0
@@ -36,47 +36,6 @@ Transform:
   - {fileID: 661596911196495160}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2057588225542986011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4366322758893206419}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88a7b5c45800264438fd7217a8e33701, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WP_SupplyBox
-  type: 7
-  fallSpeed: 1.5
-  lifeTime: 10
-  killAbsY: 150
-  healMin: 10
-  healMax: 35
-  revolverPrefab: {fileID: 8343151752060820181, guid: 6721b24c3f8ec7f4fa35b02177204d20, type: 3}
-  arPrefab: {fileID: 8343151752060820181, guid: 43b1668d40f2ad041be219db8085972e, type: 3}
-  srPrefab: {fileID: 8343151752060820181, guid: 31fab96280950a6429dca240cffe9acf, type: 3}
-  shotgunPrefab: {fileID: 8343151752060820181, guid: 9cfe035d6fc7c2c49b736367381a03ee, type: 3}
-  rocketPrefab: {fileID: 8343151752060820181, guid: a35fedb99660df1469864aab043fbaa3, type: 3}
-  smgPrefab: {fileID: 8343151752060820181, guid: f4a4a747116d9c749bb041102f59bab1, type: 3}
-  iconRenderer: {fileID: 6619819217017648274}
-  sprHeal: {fileID: -1049461823314036041, guid: d9ee5134a6765bc4dba7c037ccf98578, type: 3}
-  sprRevolver: {fileID: 21300000, guid: c0c6a4b1ae172714089f5f70bafb99c4, type: 3}
-  sprAR: {fileID: 21300000, guid: ca7a9ed1a0d4fea48b48cbf0cbd8195c, type: 3}
-  sprSR: {fileID: 21300000, guid: 693a9b460af8fa44999c7b9237a95429, type: 3}
-  sprShotgun: {fileID: 21300000, guid: 4e24e614d974e7d479995ef0ff407a85, type: 3}
-  sprRocket: {fileID: 21300000, guid: 9c3a12526f422014c899718f988c8dc2, type: 3}
-  sprSMG: {fileID: 21300000, guid: e5e49028b50de3743811b861edc0de68, type: 3}
-  sfx: {fileID: -8433823338074253934}
-  sfxHeal: {fileID: 8300000, guid: 2f4462e6d1fdd5e44a06dcf15885b94c, type: 3}
-  sfxRevolver: {fileID: 8300000, guid: db2d634a07ed7bf4c9a67f42fc64c936, type: 3}
-  sfxAR: {fileID: 8300000, guid: db2d634a07ed7bf4c9a67f42fc64c936, type: 3}
-  sfxSR: {fileID: 8300000, guid: db2d634a07ed7bf4c9a67f42fc64c936, type: 3}
-  sfxShotgun: {fileID: 8300000, guid: db2d634a07ed7bf4c9a67f42fc64c936, type: 3}
-  sfxRocket: {fileID: 8300000, guid: db2d634a07ed7bf4c9a67f42fc64c936, type: 3}
-  sfxSMG: {fileID: 8300000, guid: db2d634a07ed7bf4c9a67f42fc64c936, type: 3}
-  sfxVolume: 0.88
 --- !u!212 &2996466237184685160
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -121,9 +80,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -1779654435
-  m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingLayerID: 380514273
+  m_SortingLayer: 3
+  m_SortingOrder: 5
   m_Sprite: {fileID: 5964888322159063530, guid: ddf8567642242ea45ad697ade32c4bd8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -135,6 +94,47 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2057588225542986011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4366322758893206419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88a7b5c45800264438fd7217a8e33701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WP_SupplyBox
+  type: 7
+  fallSpeed: 1.5
+  lifeTime: 10
+  killAbsY: 150
+  healMin: 10
+  healMax: 35
+  revolverPrefab: {fileID: 8343151752060820181, guid: 6721b24c3f8ec7f4fa35b02177204d20, type: 3}
+  arPrefab: {fileID: 8343151752060820181, guid: 43b1668d40f2ad041be219db8085972e, type: 3}
+  srPrefab: {fileID: 8343151752060820181, guid: 31fab96280950a6429dca240cffe9acf, type: 3}
+  shotgunPrefab: {fileID: 8343151752060820181, guid: 9cfe035d6fc7c2c49b736367381a03ee, type: 3}
+  rocketPrefab: {fileID: 8343151752060820181, guid: a35fedb99660df1469864aab043fbaa3, type: 3}
+  smgPrefab: {fileID: 8343151752060820181, guid: f4a4a747116d9c749bb041102f59bab1, type: 3}
+  iconRenderer: {fileID: 6619819217017648274}
+  sprHeal: {fileID: -1049461823314036041, guid: d9ee5134a6765bc4dba7c037ccf98578, type: 3}
+  sprRevolver: {fileID: 21300000, guid: c0c6a4b1ae172714089f5f70bafb99c4, type: 3}
+  sprAR: {fileID: 21300000, guid: ca7a9ed1a0d4fea48b48cbf0cbd8195c, type: 3}
+  sprSR: {fileID: 21300000, guid: 693a9b460af8fa44999c7b9237a95429, type: 3}
+  sprShotgun: {fileID: 21300000, guid: 4e24e614d974e7d479995ef0ff407a85, type: 3}
+  sprRocket: {fileID: 21300000, guid: 9c3a12526f422014c899718f988c8dc2, type: 3}
+  sprSMG: {fileID: 21300000, guid: e5e49028b50de3743811b861edc0de68, type: 3}
+  sfx: {fileID: -8433823338074253934}
+  sfxHeal: {fileID: 8300000, guid: ec57e614c5d339a4f8aa9973026f7641, type: 3}
+  sfxRevolver: {fileID: 8300000, guid: ec57e614c5d339a4f8aa9973026f7641, type: 3}
+  sfxAR: {fileID: 8300000, guid: ec57e614c5d339a4f8aa9973026f7641, type: 3}
+  sfxSR: {fileID: 8300000, guid: ec57e614c5d339a4f8aa9973026f7641, type: 3}
+  sfxShotgun: {fileID: 8300000, guid: ec57e614c5d339a4f8aa9973026f7641, type: 3}
+  sfxRocket: {fileID: 8300000, guid: ec57e614c5d339a4f8aa9973026f7641, type: 3}
+  sfxSMG: {fileID: 8300000, guid: ec57e614c5d339a4f8aa9973026f7641, type: 3}
+  sfxVolume: 3
 --- !u!61 &2944980871450192091
 BoxCollider2D:
   m_ObjectHideFlags: 0

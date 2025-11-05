@@ -1,0 +1,1053 @@
+fileFormatVersion: 2
+guid: 6791641f4960a5b46b0bfbb46979df49
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7608761946171684789
+    second: free-icon-circle-401067_0
+  - first:
+      213: -479444698415872404
+    second: free-icon-circle-401067_1
+  - first:
+      213: 1568351188802004008
+    second: free-icon-circle-401067_2
+  - first:
+      213: -2056427851905971631
+    second: free-icon-circle-401067_3
+  - first:
+      213: 6942009018847243587
+    second: free-icon-circle-401067_4
+  - first:
+      213: -6226637768016127335
+    second: free-icon-circle-401067_5
+  - first:
+      213: -9215701177696440227
+    second: free-icon-circle-401067_6
+  - first:
+      213: 4337149926565533436
+    second: free-icon-circle-401067_7
+  - first:
+      213: 5316911119496433273
+    second: free-icon-circle-401067_8
+  - first:
+      213: -4164100976988147426
+    second: free-icon-circle-401067_9
+  - first:
+      213: -1283003123960338038
+    second: free-icon-circle-401067_10
+  - first:
+      213: 8382611993470637238
+    second: free-icon-circle-401067_11
+  - first:
+      213: -2342381249437259982
+    second: free-icon-circle-401067_12
+  - first:
+      213: 654179902633477104
+    second: free-icon-circle-401067_13
+  - first:
+      213: 3964362587950574290
+    second: free-icon-circle-401067_14
+  - first:
+      213: 3033588042428869489
+    second: free-icon-circle-401067_15
+  - first:
+      213: -2853281119368671130
+    second: free-icon-circle-401067_16
+  - first:
+      213: -1022213598454874599
+    second: free-icon-circle-401067_17
+  - first:
+      213: -3033346673075539587
+    second: free-icon-circle-401067_18
+  - first:
+      213: -3656795966705477846
+    second: free-icon-circle-401067_19
+  - first:
+      213: 8553066493999945946
+    second: free-icon-circle-401067_20
+  - first:
+      213: -269002341071230783
+    second: free-icon-circle-401067_21
+  - first:
+      213: -8336368317881448035
+    second: free-icon-circle-401067_22
+  - first:
+      213: 4882892883709920205
+    second: free-icon-circle-401067_23
+  - first:
+      213: 6557135476542560662
+    second: free-icon-circle-401067_24
+  - first:
+      213: 6734977661770266493
+    second: free-icon-circle-401067_25
+  - first:
+      213: 2809580137795065271
+    second: free-icon-circle-401067_26
+  - first:
+      213: 6969440601350917323
+    second: free-icon-circle-401067_27
+  - first:
+      213: -2679632723637857299
+    second: free-icon-circle-401067_28
+  - first:
+      213: 2120457254160652383
+    second: free-icon-circle-401067_29
+  - first:
+      213: 3616896173232212785
+    second: free-icon-circle-401067_30
+  - first:
+      213: -3824078647565758330
+    second: free-icon-circle-401067_31
+  - first:
+      213: -197803995304307595
+    second: free-icon-circle-401067_32
+  - first:
+      213: -7449055317757486982
+    second: free-icon-circle-401067_33
+  - first:
+      213: -7432272401355335102
+    second: free-icon-circle-401067_34
+  - first:
+      213: 6322170231344802410
+    second: free-icon-circle-401067_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: free-icon-circle-401067_0
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 469
+        width: 45
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b484de9a25f386690800000000000000
+      internalID: -7608761946171684789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_1
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 493
+        width: 51
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c664a75469ba859f0800000000000000
+      internalID: -479444698415872404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_2
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 480
+        width: 44
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 824ea93c817e3c510800000000000000
+      internalID: 1568351188802004008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_3
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 425
+        width: 43
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15accec93c91673e0800000000000000
+      internalID: -2056427851905971631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_4
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 443
+        width: 43
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34da2fb1c68f65060800000000000000
+      internalID: 6942009018847243587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_5
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 439
+        width: 43
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99a1e5ca0f98699a0800000000000000
+      internalID: -6226637768016127335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_6
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 444
+        width: 44
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5031431b904b1080800000000000000
+      internalID: -9215701177696440227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_7
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 414
+        width: 41
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf6dc8601e6a03c30800000000000000
+      internalID: 4337149926565533436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_8
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 403
+        width: 40
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97ec8e33e7679c940800000000000000
+      internalID: 5316911119496433273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_9
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 390
+        width: 40
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e11b3c949342636c0800000000000000
+      internalID: -4164100976988147426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_10
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 365
+        width: 37
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a89a0a6d47bd13ee0800000000000000
+      internalID: -1283003123960338038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_11
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 358
+        width: 34
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b41fb0f135055470800000000000000
+      internalID: 8382611993470637238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_12
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 344
+        width: 32
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 237a1c20aa03e7fd0800000000000000
+      internalID: -2342381249437259982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_13
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 323
+        width: 32
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f30babc72d141900800000000000000
+      internalID: 654179902633477104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_14
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 294
+        width: 27
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2da64a705ce340730800000000000000
+      internalID: 3964362587950574290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_15
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 288
+        width: 20
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17b68df7048791a20800000000000000
+      internalID: 3033588042428869489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_16
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 271
+        width: 18
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66093b370fb1768d0800000000000000
+      internalID: -2853281119368671130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_17
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 217
+        width: 18
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91ef58be52e50d1f0800000000000000
+      internalID: -1022213598454874599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_18
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 209
+        width: 15
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7138bea54367e5d0800000000000000
+      internalID: -3033346673075539587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_19
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 248
+        width: 19
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a27507c5173704dc0800000000000000
+      internalID: -3656795966705477846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_20
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 193
+        width: 19
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad8992309a892b670800000000000000
+      internalID: 8553066493999945946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_21
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 170
+        width: 27
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c863b8cbcf444cf0800000000000000
+      internalID: -269002341071230783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_22
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 141
+        width: 32
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d990bdfce254f4c80800000000000000
+      internalID: -8336368317881448035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_23
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 138
+        width: 28
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc300d1053583c340800000000000000
+      internalID: 4882892883709920205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_24
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 123
+        width: 30
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6995e6789ff9ffa50800000000000000
+      internalID: 6557135476542560662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_25
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 100
+        width: 36
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d77f10cff72777d50800000000000000
+      internalID: 6734977661770266493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_26
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 76
+        width: 40
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b59441ef32adf620800000000000000
+      internalID: 2809580137795065271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_27
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 83
+        width: 39
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bccc4be1d4d68b060800000000000000
+      internalID: 6969440601350917323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_28
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 75
+        width: 39
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de39d033c3800dad0800000000000000
+      internalID: -2679632723637857299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_29
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 44
+        width: 42
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5855a353a06d6d10800000000000000
+      internalID: 2120457254160652383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_30
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 29
+        width: 44
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13bc9fa08ebc13230800000000000000
+      internalID: 3616896173232212785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_31
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 59
+        width: 42
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 680dfaa1bb42eeac0800000000000000
+      internalID: -3824078647565758330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_32
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 55
+        width: 43
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 574dbb47052414df0800000000000000
+      internalID: -197803995304307595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_33
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 3
+        width: 44
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7894d0c7a3af9890800000000000000
+      internalID: -7449055317757486982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_34
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 0
+        width: 43
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24a964bf0a34bd890800000000000000
+      internalID: -7432272401355335102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: free-icon-circle-401067_35
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 10
+        width: 44
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6a2bd0445cdcb750800000000000000
+      internalID: 6322170231344802410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      free-icon-circle-401067_0: -7608761946171684789
+      free-icon-circle-401067_1: -479444698415872404
+      free-icon-circle-401067_10: -1283003123960338038
+      free-icon-circle-401067_11: 8382611993470637238
+      free-icon-circle-401067_12: -2342381249437259982
+      free-icon-circle-401067_13: 654179902633477104
+      free-icon-circle-401067_14: 3964362587950574290
+      free-icon-circle-401067_15: 3033588042428869489
+      free-icon-circle-401067_16: -2853281119368671130
+      free-icon-circle-401067_17: -1022213598454874599
+      free-icon-circle-401067_18: -3033346673075539587
+      free-icon-circle-401067_19: -3656795966705477846
+      free-icon-circle-401067_2: 1568351188802004008
+      free-icon-circle-401067_20: 8553066493999945946
+      free-icon-circle-401067_21: -269002341071230783
+      free-icon-circle-401067_22: -8336368317881448035
+      free-icon-circle-401067_23: 4882892883709920205
+      free-icon-circle-401067_24: 6557135476542560662
+      free-icon-circle-401067_25: 6734977661770266493
+      free-icon-circle-401067_26: 2809580137795065271
+      free-icon-circle-401067_27: 6969440601350917323
+      free-icon-circle-401067_28: -2679632723637857299
+      free-icon-circle-401067_29: 2120457254160652383
+      free-icon-circle-401067_3: -2056427851905971631
+      free-icon-circle-401067_30: 3616896173232212785
+      free-icon-circle-401067_31: -3824078647565758330
+      free-icon-circle-401067_32: -197803995304307595
+      free-icon-circle-401067_33: -7449055317757486982
+      free-icon-circle-401067_34: -7432272401355335102
+      free-icon-circle-401067_35: 6322170231344802410
+      free-icon-circle-401067_4: 6942009018847243587
+      free-icon-circle-401067_5: -6226637768016127335
+      free-icon-circle-401067_6: -9215701177696440227
+      free-icon-circle-401067_7: 4337149926565533436
+      free-icon-circle-401067_8: 5316911119496433273
+      free-icon-circle-401067_9: -4164100976988147426
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

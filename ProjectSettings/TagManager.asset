@@ -13,6 +13,7 @@ TagManager:
   - block
   - Enemy
   - pain
+  - Cam_UI
   layers:
   - Default
   - TransparentFX
@@ -50,20 +51,23 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: 1
+  - name: background
     uniqueID: 2515312861
     locked: 0
-  - name: 2
+  - name: world
     uniqueID: 2072582039
     locked: 0
-  - name: 3
+  - name: player
     uniqueID: 380514273
     locked: 0
-  - name: 4
+  - name: Boss
     uniqueID: 329939819
     locked: 0
-  - name: 5
+  - name: UI
     uniqueID: 2791580705
+    locked: 0
+  - name: over
+    uniqueID: 2503784665
     locked: 0
   m_RenderingLayers:
   - Default

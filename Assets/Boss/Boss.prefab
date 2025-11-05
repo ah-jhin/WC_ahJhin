@@ -388,7 +388,6 @@ GameObject:
   - component: {fileID: 3967211917492624665}
   - component: {fileID: 9108949330123192708}
   - component: {fileID: 5673419810928522585}
-  - component: {fileID: 8771668173512090960}
   - component: {fileID: 8003268391082055348}
   m_Layer: 8
   m_Name: Boss
@@ -548,22 +547,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &8771668173512090960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6414839543661516326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a06d19842024fb43860b959c9e58d55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHP: 10
-  hpSlider: {fileID: 0}
-  hpText: {fileID: 0}
-  deathDelay: 0
 --- !u!114 &8003268391082055348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,8 +560,78 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 1000
+  bossName: "\uBCF4\uC2A4"
+  actor: {fileID: 0}
+  bossBarRoot: {fileID: 0}
   hpSlider: {fileID: 0}
   hpText: {fileID: 0}
+  hpFill: {fileID: 0}
+  nameTextTarget: {fileID: 0}
+  barAnimTime: 0.35
+  barOnscreenPos: {x: 0, y: -40}
+  barOffscreenPos: {x: 0, y: 120}
+  ease:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  colorFadeTime: 0.25
+  shakeAmp: 6
+  shakeFreq: 30
+  shakeOnAppear: 1
+  shakeOnAppearTime: 0.2
+  sfxAppear: {fileID: 0}
+  sfxDisappear: {fileID: 0}
+  fxAppear: {fileID: 0}
+  fxDisappear: {fileID: 0}
+  audioSrc: {fileID: 0}
+  introInvincible: 1
+  introSuppressThreshold: 1
+  defaultColor: {r: 0.2, g: 0.9, b: 0.2, a: 1}
+  thresholds:
+  - hpLessEqual: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sfx: {fileID: 0}
+    fx: {fileID: 0}
+    bgmClip: {fileID: 0}
+    bgmLoop: 0
+  - hpLessEqual: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sfx: {fileID: 0}
+    fx: {fileID: 0}
+    bgmClip: {fileID: 0}
+    bgmLoop: 0
+  - hpLessEqual: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sfx: {fileID: 0}
+    fx: {fileID: 0}
+    bgmClip: {fileID: 0}
+    bgmLoop: 0
+  - hpLessEqual: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
+    sfx: {fileID: 0}
+    fx: {fileID: 0}
+    bgmClip: {fileID: 0}
+    bgmLoop: 0
   deathDelay: 0
   beamSpawnL: {fileID: 334808714855537843}
   beamSpawnR: {fileID: 1315042779839033408}

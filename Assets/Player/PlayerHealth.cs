@@ -15,9 +15,11 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 	public UIHUD hud;				 // 인스펙터 연결
 
 	[Header("피격 무적")]
-	public float invincibleTime = 0.6f; // 피격 후 무적 시간
+    // 피해 충돌 시 플레이어 무적시간을 무시할지 여부(인스펙터에서 설정)
+    public float invincibleTime = 0.6f; // 피격 후 무적 시간
 	private float lastHitTime = -999f;  // 마지막 피격 시각
-	public SpriteRenderer sr;           // 깜빡임용 렌더러
+    [Tooltip("깜빡임용 렌더러")]
+	public SpriteRenderer sr;           // 깜빡이용 
 
     [Header("사망")]           	
     public GameObject bloodEffectPrefab;   // 피격 시 생성할 피 효과 프리팹
@@ -25,7 +27,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     public GameObject gameOverUI;          // 게임오버 화면 UI 오브젝트
     public GameObject bossDialogueObject;  // 보스 대사 출력용 UI 오브젝트
     public AudioSource bgmAudioSource;     // 배경음악 AudioSource (음악 교체용)
-[SerializeField] private bool isDead = false; // ← 사망 여부 저장. 기본값 false
+    [SerializeField] private bool isDead = false; // ← 사망 여부 저장. 기본값 false
 
     public bool IsDead => isDead;                 // ← 외부 읽기 전용 접근자
     [Header("효과음(SFX)")]
@@ -38,7 +40,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     public float painKnockback = 10f;     // 'pain' 넉백(force) 값
 	void Awake()
 	{
-		rb = GetComponent<Rigidbody2D>();               // ← 추가
+		rb = GetComponent<Rigidbody2D>();
 														// 시작 체력 초기화
 		currentHP = maxHP;
 		hud?.SetHP(currentHP, maxHP);   // UI 갱신
@@ -47,29 +49,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 		if (!sr) sr = GetComponentInChildren<SpriteRenderer>();
 	}
 
-	/// <summary>
-	/// IDamageable 구현.
-	/// 약점 여부와 배율이 들어오지만, 플레이어에게 약점 개념이 없으면 무시 가능.
-	/// </summary>
-	    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("pain"))
-        {
-            // [추가] 'pain' 태그 충돌 시 피해 적용
-            ApplyPain(painMin, painMax, painKnockback, other.transform.position);
-        }
-    }
-    void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.CompareTag("pain"))
-        {
-            // [추가] 'pain' 영역에 머무르는 동안 지속 피해 적용
-            ApplyPain(painMin, painMax, painKnockback, other.transform.position);
-        }
-    }
-    
-
-	public void TakeDamage(int amount, bool weak, float weakMultiplier)
+    public void TakeDamage(int amount, bool weak, float weakMultiplier)
 	{
 		// 1) 무적/사망 상태면 무시
 		if (Time.time - lastHitTime < invincibleTime || isDead) return;
@@ -115,46 +95,52 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 		}
 		if (sr) sr.enabled = true;
 	}
-// 2) 외부 호출용 Pain 처리 함수
-/// <summary>
-/// 가시/함정/보스 패턴 등 'pain' 태그 피격 처리
-/// min~max: 난수 피해 범위, knockback: 밀리는 힘, srcPos: 공격원점(지금은 미사용)
-/// </summary>
-public void ApplyPain(int min, int max, float knockback, Vector3 srcPos)
-{
-    // 무적 시간 또는 사망 시 무시
-    if (Time.time - lastHitTime < invincibleTime || isDead) return;
-    lastHitTime = Time.time;
+    // 2) 외부 호출용 Pain 처리 함수
+    /// <summary>
+    /// 가시/함정/보스 패턴 등 'pain' 태그 피격 처리
+    /// min~max: 난수 피해 범위, knockback: 밀리는 힘, srcPos: 공격원점(지금은 미사용)
+    /// </summary>
+    // ▼ 무적시간을 '무시'하고 즉시 Pain 데미지를 적용하는 오버로드
+    public void ApplyPain(int min, int max, float knockback, Vector3 srcPos, bool ignoreIFrames)
+    {
+        // 사망 상태면 무시
+        if (isDead) return;
 
-    // 1) 난수 피해(정수)
-    int dmg = Random.Range(Mathf.Min(min, max), Mathf.Max(min, max) + 1);
+        // 무적 무시가 아니라면 기존 무적 시간 체크
+        if (!ignoreIFrames)
+        {
+            // lastHitTime, invincibleTime은 기존 필드 사용
+            if (Time.time - lastHitTime < invincibleTime) return;
+        }
+
+        // 타격 타임스탬프 갱신
+        lastHitTime = Time.time;
+
+        // 피해량 계산(최소~최대 범위)
+        int dmg = Random.Range(Mathf.Min(min, max), Mathf.Max(min, max) + 1);
         currentHP = Mathf.Max(0, currentHP - dmg);
+        if (GameScore.I) GameScore.I.OnPlayerDamaged(dmg);
 
-    if (sfx && hurtSFX) sfx.PlayOneShot(hurtSFX);
+        // 피격 사운드
+        if (sfx && hurtSFX) sfx.PlayOneShot(hurtSFX);
 
-    // 2) 랜덤 방향 넉백(좌/우 랜덤 + 약간 위로)
-    float dir = Random.value < 0.5f ? -1f : 1f;
-    if (rb)
-    {
-#if UNITY_600_0_OR_NEWER
-        rb.AddForce(new Vector2(dir * knockback, knockback * 0.5f), ForceMode2D.Impulse);
-#else
-        rb.AddForce(new Vector2(dir * knockback, knockback * 0.5f), ForceMode2D.Impulse);
-#endif
+        // 넉백: 좌/우 랜덤 방향 + 약간의 상향 힘
+        float dir = Random.value < 0.5f ? -1f : 1f;
+        if (rb) rb.AddForce(new Vector2(dir * knockback, knockback * 0.5f), ForceMode2D.Impulse);
+
+        // HUD 반영
+        hud?.ShowDamage(transform.position, dmg, Color.red);
+        hud?.SetHP(currentHP, maxHP);
+
+        // 사망 처리
+        if (currentHP <= 0 && !isDead)
+        {
+            isDead = true;
+            OnDead();
+        }
     }
 
-    // 3) HUD 갱신 및 데미지 숫자
-    hud?.ShowDamage(transform.position, dmg, Color.red);
-    hud?.SetHP(currentHP, maxHP);
-
-    // 4) 사망 처리
-    if (currentHP <= 0 && !isDead)
-    {
-        isDead = true;
-        OnDead();
-    }
-}
-	/// <summary>사망 로직</summary>
+    /// <summary>사망 로직</summary>
     void OnDead()
     {
         Debug.Log("[PlayerHealth] Player Dead");
@@ -178,7 +164,11 @@ public void ApplyPain(int min, int max, float knockback, Vector3 srcPos)
         // 2. 플레이어 캐릭터 제거 (스프라이트 비활성화로 화면에서 숨김)
         if (sr) sr.enabled = false;
         // 3. 배경음 정지 및 게임오버 음악 재생
-        if (bgmAudioSource) bgmAudioSource.Stop();
+        if (gameOverMusic)
+        {
+            Vector3 p = Camera.main ? Camera.main.transform.position : transform.position;
+            AudioSource.PlayClipAtPoint(gameOverMusic, p, 1f); // 2D 재생
+        }
         if (bgmAudioSource && gameOverMusic)
         {
             bgmAudioSource.loop = false;
@@ -194,18 +184,18 @@ public void ApplyPain(int min, int max, float knockback, Vector3 srcPos)
             
         Invoke(nameof(HideBossDialogue), 5f);
 		Invoke(nameof(RemovePlayerObject), 5.1f);
-		GameScore.I?.OnPlayerDeath();  // 🔹 여기서 점수 서버 전송
+		GameScore.I?.OnPlayerDeath();  // 여기서 점수 서버 전송
     }
     
     private void HideBossDialogue()
     {
-        // [추가] 4초 후 보스 대사 숨기기
+        // 보스 대사 숨기기
         if (bossDialogueObject) 
             bossDialogueObject.SetActive(false);
     }
     private void RemovePlayerObject()
     {
-        // [추가] 사망 연출 완료 후 플레이어 오브젝트 제거
+        // 사망 연출 완료 후 플레이어 오브젝트 제거
         Destroy(gameObject);
     }
 

@@ -151,29 +151,23 @@ public class WP_Manager : MonoBehaviour
     // 보급 상자 등이 호출: 무기 프리팹을 슬롯(1~2)에 장착
 public bool AddWeapon(GameObject weaponPrefab, bool select = true)
 {
-    if (!weaponPrefab) { Debug.LogWarning("[WP_Manager] AddWeapon: prefab=null"); return false; }
-
     int slot = -1;
     for (int i = 1; i < weaponSlots.Length; i++)
         if (weaponSlots[i] == null) { slot = i; break; }
 
     if (slot == -1)
     {
-        Debug.LogWarning("[WP_Manager] 빈 슬롯(1~2) 없음");
         return false;
     }
 
     var go = Instantiate(weaponPrefab, transform);
-    if (!go) { Debug.LogError("[WP_Manager] Instantiate 실패"); return false; }
 
     // 필수 컴포넌트 점검
     var wi = go.GetComponent<IWeaponInfo>();
-    if (wi == null) Debug.LogError("[WP_Manager] IWeaponInfo 미구현(예: WP_Pistol 누락)");
 
     weaponSlots[slot] = go;
     if (select) { _cur = slot; ActivateCurrent(); } else go.SetActive(false);
 
-    Debug.Log($"[WP_Manager] 슬롯 {slot} 장착: {go.name}");
     RefreshSlotIcons();
     return true;
 }

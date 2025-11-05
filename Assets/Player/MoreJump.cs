@@ -3,15 +3,16 @@
 public class MoreJump : MonoBehaviour
 {
     [Header("강도")]
-    [SerializeField] private float bounceStrength = 15f;    // 플레이어를 튕겨올리는 힘의 크기
+    [Tooltip("플레이어가 오브 접촉 시 도달해야 하는 '목표 변위(미터)'. 양수=상승, 음수=하강")]
+    [SerializeField] private float bounceStrength = 15f;    // 목표 상승/하강 거리(미터)
 
     [Header("설정")]
-    [SerializeField] private bool disappearOnHit = false;   // 충돌 시 오브젝트 사라지는지 여부
-    [SerializeField] private float respawnDelay = 5f;       // 재생성 딜레이 (초, disappearOnHit이 true일 때만 사용)
+    [SerializeField] private bool disappearOnHit = false;   // 충돌 시 오브젝트 사라짐 여부
+    [SerializeField] private float respawnDelay = 5f;       // 재생성 딜레이(초)
 
     [Header("효과")]
-    [SerializeField] private GameObject bounceEffectPrefab; // 튕길 때 생성할 VFX 프리팹
-    [SerializeField] private AudioClip bounceSound;         // 튕길 때 재생할 SFX 클립
+    [SerializeField] private GameObject bounceEffectPrefab; // VFX 프리팹
+    [SerializeField] private AudioClip bounceSound;         // SFX 클립
 
     private SpriteRenderer spriteRenderer;
     private Collider2D col;
@@ -19,10 +20,11 @@ public class MoreJump : MonoBehaviour
 
     void Awake()
     {
-        // 동일 오브젝트의 SpriteRenderer와 Collider2D 컴포넌트 참조 저장
+        // 같은 오브젝트 내 컴포넌트 참조
         spriteRenderer = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
-        // 오디오소스 세팅: 기존 AudioSource가 없으면 추가
+
+        // 오디오소스 준비(없으면 추가)
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null && bounceSound != null)
         {
@@ -32,47 +34,66 @@ public class MoreJump : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // 플레이어와 충돌했을 때만 작동
-        if (other.CompareTag("Player"))
+        // Player 태그만 반응
+        if (!other.CompareTag("Player")) return;
+
+        Rigidbody2D playerRb = other.GetComponent<Rigidbody2D>();
+        if (playerRb != null)
         {
-            // 충돌한 객체가 플레이어라면 해당 Rigidbody2D를 위로 튕겨냄
-            Rigidbody2D playerRb = other.GetComponent<Rigidbody2D>();
-            if (playerRb != null)
-            {
-                // 현재 x속도 유지한 채, bounceStrength 만큼 위쪽 방향 속도를 부여
-                playerRb.linearVelocity = new Vector2(playerRb.linearVelocity.x, bounceStrength);
-            }
+            // === 정확히 'bounceStrength' 미터 만큼 위/아래로 이동하도록 초기속도를 역산하여 부여 ===
+            float g = Mathf.Abs(Physics2D.gravity.y * playerRb.gravityScale); // 유효 중력가속도(>0)
+            float targetDeltaY = bounceStrength;                               // 목표 변위(미터)
 
-            // 이펙트 재생: 프리팹이 지정되어 있으면 현재 위치에 생성
-            if (bounceEffectPrefab != null)
-            {
-                Instantiate(bounceEffectPrefab, transform.position, Quaternion.identity);
-            }
+            // 기존 수직 관성 제거(중력/관성 영향 배제 목적)
+            Vector2 v = playerRb.linearVelocity;
+            v.y = 0f;
+            playerRb.linearVelocity = v;
 
-            // 사운드 재생: 오디오 클립이 지정되어 있으면 1회 재생
-            if (bounceSound != null && audioSource != null)
+            if (g < 1e-4f)
             {
-                audioSource.PlayOneShot(bounceSound);
+                // 중력이 사실상 0이면 등가속도 공식이 성립하지 않으므로 위치로 직접 보정
+                playerRb.position += new Vector2(0f, targetDeltaY);
             }
-
-            // 오브젝트 사라짐 처리
-            if (disappearOnHit)
+            else
             {
-                // 스프라이트와 콜라이더를 비활성화하여 사라진 것처럼 만든다
-                if (spriteRenderer != null) spriteRenderer.enabled = false;
-                if (col != null) col.enabled = false;
-                // respawnDelay 후에 Respawn 함수 호출하여 재활성화
-                if (respawnDelay >= 0f)
-                {
-                    Invoke(nameof(Respawn), respawnDelay);
-                }
+                // v0 = sqrt(2 * g * |Δy|): 이 초기속도를 주면 정확히 Δy만큼 상승/하강 후 정지점 도달
+                float v0 = Mathf.Sqrt(2f * g * Mathf.Abs(targetDeltaY));
+                float newVy = (targetDeltaY >= 0f) ? v0 : -v0;
+
+                Vector2 outV = playerRb.linearVelocity;
+                outV.y = newVy;
+                playerRb.linearVelocity = outV;
+            }
+            // === 여기까지 ===
+        }
+
+        // VFX
+        if (bounceEffectPrefab != null)
+        {
+            Instantiate(bounceEffectPrefab, transform.position, Quaternion.identity);
+        }
+
+        // SFX
+        if (bounceSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(bounceSound);
+        }
+
+        // 일시적 비활성화 처리
+        if (disappearOnHit)
+        {
+            if (spriteRenderer != null) spriteRenderer.enabled = false;
+            if (col != null) col.enabled = false;
+
+            if (respawnDelay >= 0f)
+            {
+                Invoke(nameof(Respawn), respawnDelay);
             }
         }
     }
 
     void Respawn()
     {
-        // 오브젝트를 다시 보이게 하고 충돌도 활성화
         if (spriteRenderer != null) spriteRenderer.enabled = true;
         if (col != null) col.enabled = true;
     }
