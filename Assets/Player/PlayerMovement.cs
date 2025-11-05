@@ -194,7 +194,7 @@ public class PlayerMovement : MonoBehaviour
 				h = (sr.flipX ? -1 : 1);
 		}
 
-		// 방향별 파워 조합
+		// 축별 파워 조합
 		float vx = (h == 0) ? 0f : Mathf.Sign(h) * dashPowerH;
 		float vy = 0f;
 		if (v > 0) vy = dashPowerV;

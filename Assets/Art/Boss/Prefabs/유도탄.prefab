@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9163197966884107461}
   - component: {fileID: 1131339237172245885}
   m_Layer: 0
-  m_Name: PP
+  m_Name: "\uC720\uB3C4\uD0C4"
   m_TagString: pain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::pain
   minDamage: 5
-  maxDamage: 10
+  maxDamage: 15
   knockback: 10
   localInvincible: 0.3
   destroyOnTouch: 0
@@ -159,10 +159,10 @@ MonoBehaviour:
   targetPosition: {x: 0, y: 0}
   trackPlayer: 0
   useInertia: 0
-  inertiaValue: 1
-  increaseSize: 0
+  inertiaValue: 0.5
+  increaseSize: 1
   autoDespawn: 1
-  despawnAfter: 5
+  despawnAfter: 10
   despawnPrefab: {fileID: 0}
   despawnVFX: {fileID: 0}
   despawnSFX: {fileID: 0}

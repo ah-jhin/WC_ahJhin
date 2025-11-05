@@ -65,6 +65,77 @@ public class BossSequenceController : MonoBehaviour
 	public AudioClip bgmClip;
 	public bool loopBgm = true;
 
+	// ─────────────────────────────────────────────
+	// ⑤ 보스전 시작 시 배경/카메라 연출(인스펙터용)
+	// ─────────────────────────────────────────────
+	[System.Serializable]
+	public struct Tisiphone_BgTween
+	{
+		[Tooltip("변경 대상 배경(BackgroundUVScroller)")]
+		public BackgroundUVScroller target;
+
+		[Header("목표값")]
+		[Tooltip("목표 UV 스크롤 속도(초당). X=가로, Y=세로")]
+		public Vector2 uvSpeed;
+		[Tooltip("목표 회전 속도(도/초)")]
+		public float rotationSpeed;
+
+		[Header("진행/복귀")]
+		[Tooltip("현재→목표로 보간 시간(초). 0이면 즉시 적용")]
+		public float lerpTime;
+		[Tooltip("목표 상태 유지 시간(초). 0이면 유지 없이 즉시 다음 단계")]
+		public float holdTime;
+		[Tooltip("유지 후 원래 값으로 되돌릴지 여부")]
+		public bool revert;
+		[Tooltip("보간 이징(비워두면 선형)")]
+		public AnimationCurve ease;
+	}
+
+	[System.Serializable]
+	public struct Tisiphone_CamFx
+	{
+		[Tooltip("카메라 연출을 적용할 CameraEffects. 비우면 자동 탐색")]
+		public CameraEffects cam;
+
+		[Header("쉐이크")]
+		public bool shake;
+		public float shakeDuration;
+		public float shakeAmplitude;
+		public float shakeFrequency;
+
+		[Header("줌")]
+		public bool zoom;
+		public float zoomSize;
+		public float zoomTime;
+
+		[Header("회전")]
+		public bool rotate;
+		public float rotateZ;
+		public float rotateTime;
+
+		[Header("자동 리셋")]
+		[Tooltip("적용 후 자동으로 기본값으로 복귀할지")]
+		public bool autoReset;
+		[Tooltip("복귀까지 대기 시간(초)")]
+		public float autoResetDelay;
+		[Tooltip("복귀 보간 시간(초)")]
+		public float resetEaseTime;
+	}
+
+	[Header("⑤ 보스전 시작 시 배경 연출 목록")]
+	public Tisiphone_BgTween[] startBackgroundTweens;
+
+	[Header("⑥ 보스전 시작 시 카메라 연출 목록")]
+	public Tisiphone_CamFx[] startCameraEffects;
+
+	[Header("⑦ 패턴 시작 제어")]
+	[Tooltip("보스를 소환한 뒤 패턴을 자동으로 시작한다")]
+	public bool startPatternsOnSpawn = true;
+
+	[Tooltip("보스 소환 뒤 패턴을 시작하기 전 대기 시간(초)")]
+	public float patternStartDelay = 5.0f;
+
+
 	// 상태
 	bool spawned = false;
 
@@ -177,6 +248,11 @@ public class BossSequenceController : MonoBehaviour
 			var m2 = boss.GetType().GetMethod(name, flags);
 			if (m2 != null) m2.Invoke(boss, args);
 		}
+		ApplyStartFx();  // Q로 시작 시 배경/카메라 연출 트리거
+						 // 보스 소환 후 패턴 시작 신호(지연 포함)
+		if (startPatternsOnSpawn)
+			StartCoroutine(CoSignalPatternsAfterDelay());
+
 	}
 
 	// ───────────────────────────────────────────────────────
@@ -259,6 +335,140 @@ public class BossSequenceController : MonoBehaviour
 		// 같은 씬에서 재도전까지 허용하고 싶으면 아래 주석 해제
 		// spawned = false;
 		// if (spawnMode == SpawnMode.SceneObject && sceneBossActor) sceneBossActor.SetActive(false);
+	}
+
+	// 배경 보간 코루틴
+	System.Collections.IEnumerator CoApplyBg(Tisiphone_BgTween t)
+	{
+		if (!t.target) yield break;
+
+		// 원래 값 보관
+		Vector2 fromSpeed = t.target.uvSpeed;
+		float fromRot = t.target.rotationSpeed;
+
+		// 전진 보간
+		float dur = Mathf.Max(0f, t.lerpTime);
+		if (dur <= 0f)
+		{
+			t.target.uvSpeed = t.uvSpeed;
+			t.target.rotationSpeed = t.rotationSpeed;
+		}
+		else
+		{
+			float e = 0f;
+			while (e < dur)
+			{
+				e += Time.unscaledDeltaTime;
+				float k = Mathf.Clamp01(e / dur);
+				if (t.ease != null) k = t.ease.Evaluate(k);
+
+				// ★ BackgroundUVScroller의 공개 필드만 변경 (uvSpeed/rotationSpeed) :contentReference[oaicite:3]{index=3}
+				t.target.uvSpeed = Vector2.LerpUnclamped(fromSpeed, t.uvSpeed, k);
+				t.target.rotationSpeed = Mathf.LerpUnclamped(fromRot, t.rotationSpeed, k);
+				yield return null;
+			}
+			t.target.uvSpeed = t.uvSpeed;
+			t.target.rotationSpeed = t.rotationSpeed;
+		}
+
+		// 유지
+		if (t.holdTime > 0f)
+			yield return new WaitForSecondsRealtime(t.holdTime);
+
+		// 복귀
+		if (t.revert)
+		{
+			float rdur = Mathf.Max(0f, t.lerpTime);
+			if (rdur <= 0f)
+			{
+				t.target.uvSpeed = fromSpeed;
+				t.target.rotationSpeed = fromRot;
+			}
+			else
+			{
+				float e = 0f;
+				while (e < rdur)
+				{
+					e += Time.unscaledDeltaTime;
+					float k = Mathf.Clamp01(e / rdur);
+					if (t.ease != null) k = t.ease.Evaluate(k);
+					t.target.uvSpeed = Vector2.LerpUnclamped(t.uvSpeed, fromSpeed, k);
+					t.target.rotationSpeed = Mathf.LerpUnclamped(t.rotationSpeed, fromRot, k);
+					yield return null;
+				}
+				t.target.uvSpeed = fromSpeed;
+				t.target.rotationSpeed = fromRot;
+			}
+		}
+	}
+
+	CameraEffects GetCam(CameraEffects prefer)
+	{
+#if UNITY_2023_1_OR_NEWER
+    return prefer ? prefer : UnityEngine.Object.FindFirstObjectByType<CameraEffects>(FindObjectsInactive.Include);
+#else
+#pragma warning disable CS0618
+		return prefer ? prefer : UnityEngine.Object.FindObjectOfType<CameraEffects>();
+#pragma warning restore CS0618
+#endif
+	}
+
+	void PlayCamFx(Tisiphone_CamFx fx)
+	{
+		var cam = GetCam(fx.cam);
+		if (!cam) return;
+
+		// ★ CameraEffects API 사용: Shake/ZoomTo/RotateTo/ResetAll :contentReference[oaicite:4]{index=4}
+		if (fx.shake)
+			cam.Shake(fx.shakeDuration, fx.shakeAmplitude, fx.shakeFrequency);
+		if (fx.zoom)
+			cam.ZoomTo(fx.zoomSize, fx.zoomTime);
+		if (fx.rotate)
+			cam.RotateTo(fx.rotateZ, fx.rotateTime);
+
+		if (fx.autoReset)
+			StartCoroutine(CoCamAutoReset(cam, Mathf.Max(0f, fx.autoResetDelay), Mathf.Max(0f, fx.resetEaseTime)));
+	}
+
+	System.Collections.IEnumerator CoCamAutoReset(CameraEffects cam, float delay, float ease)
+	{
+		if (delay > 0f) yield return new WaitForSecondsRealtime(delay);
+		cam.ResetAll(ease);
+	}
+	// 보스 소환 후 n초 대기→해당 보스에 달린 Pattern들 시작
+	System.Collections.IEnumerator CoSignalPatternsAfterDelay()
+	{
+		if (patternStartDelay > 0f)
+			yield return new WaitForSeconds(patternStartDelay);
+
+		// 현재 소환된 외형 아래에서 Pattern을 찾는다
+		Pattern[] list = null;
+		if (currentActor) list = currentActor.GetComponentsInChildren<Pattern>(true);
+
+		// 없으면 컨트롤러 자신에서 시도(프로젝트 구조 유연성)
+		if (list == null || list.Length == 0)
+			list = GetComponentsInChildren<Pattern>(true);
+
+		foreach (var p in list)
+		{
+			// 외부 신호를 기다리도록 되어 있다면 그 경로 사용
+			// 아니라면 직접 시작
+			p.autoStart = false; // Start()에서 먼저 돌지 않게 방지
+			if (p.waitForSpawnSignal) p.SignalBossSpawned();
+			else p.StartPatterns();
+		}
+	}
+
+
+	void ApplyStartFx()
+	{
+		if (startBackgroundTweens != null)
+			foreach (var t in startBackgroundTweens)
+				StartCoroutine(CoApplyBg(t));
+
+		if (startCameraEffects != null)
+			foreach (var c in startCameraEffects)
+				PlayCamFx(c);
 	}
 
 	// ───────────────────────────────────────────────────────

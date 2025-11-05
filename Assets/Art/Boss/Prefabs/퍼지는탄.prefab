@@ -12,8 +12,10 @@ GameObject:
   - component: {fileID: 6200033542271057742}
   - component: {fileID: 9163197966884107461}
   - component: {fileID: 1131339237172245885}
+  - component: {fileID: 6171255995530571277}
+  - component: {fileID: -1494146484232108357}
   m_Layer: 0
-  m_Name: PP
+  m_Name: "\uD37C\uC9C0\uB294\uD0C4"
   m_TagString: pain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,8 +83,8 @@ SpriteRenderer:
   m_SortingLayerID: 329939819
   m_SortingLayer: 4
   m_SortingOrder: 1
-  m_Sprite: {fileID: -478294735363681317, guid: 40ac0e1093744c24db9aeaf2ed68f28a, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 1748881728203680985, guid: 877d2e3b53c19a24cb1eacd3e560f9ae, type: 3}
+  m_Color: {r: 1, g: 1, b: 0.29803923, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -141,7 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::pain
   minDamage: 5
-  maxDamage: 10
+  maxDamage: 15
   knockback: 10
   localInvincible: 0.3
   destroyOnTouch: 0
@@ -159,12 +161,63 @@ MonoBehaviour:
   targetPosition: {x: 0, y: 0}
   trackPlayer: 0
   useInertia: 0
-  inertiaValue: 1
+  inertiaValue: 0.5
   increaseSize: 0
   autoDespawn: 1
-  despawnAfter: 5
+  despawnAfter: 10
   despawnPrefab: {fileID: 0}
   despawnVFX: {fileID: 0}
   despawnSFX: {fileID: 0}
   playerTag: Player
   blockTag: block
+--- !u!114 &6171255995530571277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113618726331822191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 151cc58667f25e4478916a4219dc8a03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DanmakuEmitter
+  bulletPrefab: {fileID: 2113618726331822191}
+  playOnStart: 0
+  startDelay: 0
+  loop: 0
+  loopInterval: 0
+  usePooling: 1
+  prewarmCount: 3
+  pattern: 1
+  baseAngleDeg: 90
+  spawnRadius: 0
+  bulletSpeed: 8
+  bulletAcceleration: 0
+  bulletLifeTime: 10
+  bulletsPerRing: 10
+  subBurstCount: 12
+  subBurstInterval: 0.05
+  offsetPerSubBurstDeg: 4
+  burstRepeat: 1
+  burstInterval: 0.25
+  spawnInnerRing: 1
+  innerRingRadius: 0.8
+  innerRingBullets: 20
+  spiralDuration: 3
+  spiralShotInterval: 0.03
+  spiralSpinDegPerSec: 240
+  spiralArms: 1
+  spiralArmSpreadDeg: 180
+--- !u!114 &-1494146484232108357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113618726331822191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8e45915fc2ef6498dfd158b77df24c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SimpleBulletMover

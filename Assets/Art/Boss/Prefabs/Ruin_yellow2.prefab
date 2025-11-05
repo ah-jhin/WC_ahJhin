@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 940323304685887804}
   - component: {fileID: 4029375623067109143}
   - component: {fileID: 28741696019879472}
-  m_Layer: 7
-  m_Name: Ruin
-  m_TagString: pain
+  m_Layer: 0
+  m_Name: Ruin_yellow2
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,8 +83,8 @@ SpriteRenderer:
   m_SortingLayerID: 329939819
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3172466048368850041, guid: eda13c5d5f0e3044da4cdc80d06a2a8b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -839707116475405877, guid: 45a1cf10510f7f8468bef8937707099d, type: 3}
+  m_Color: {r: 0.968729, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

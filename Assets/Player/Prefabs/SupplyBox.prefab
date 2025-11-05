@@ -107,8 +107,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WP_SupplyBox
   type: 7
-  fallSpeed: 1.5
-  lifeTime: 10
+  fallSpeed: 3.5
+  lifeTime: 30
   killAbsY: 150
   healMin: 10
   healMax: 35
@@ -155,16 +155,16 @@ BoxCollider2D:
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_ContactCaptureLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8
   m_CallbackLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0

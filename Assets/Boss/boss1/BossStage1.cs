@@ -86,27 +86,7 @@ public class BossStage1 : BossBase
     private Vector2 _groundPos;
     private Coroutine _patternLoopCo;
 
-    protected override void Start()
-    {
-        if (overrideMaxHP > 0) maxHP = overrideMaxHP;
-        base.Start();
-
-        var pObj = GameObject.FindGameObjectWithTag("Player");
-        if (pObj)
-        {
-            _player = pObj.transform;
-            _playerRb = pObj.GetComponent<Rigidbody2D>();
-        }
-
-        if (popCurve == null)
-            popCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.4f, 1), new Keyframe(1, 0));
-
-        ScheduleNextSky();     // 초기 예약
-        ScheduleNextBeam();    // 초기 예약
-        _patternLoopCo = StartCoroutine(PatternLoop());
-    }
-
-    void Update()
+	void Update()
     {
         // 지상 평사격
         if (_inSkySkill) return;
