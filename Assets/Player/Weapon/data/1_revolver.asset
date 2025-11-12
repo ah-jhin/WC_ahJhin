@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WP_Data
   displayName: "\uB9AC\uBCFC\uBC84"
   icon: {fileID: 21300000, guid: c0c6a4b1ae172714089f5f70bafb99c4, type: 3}
-  minDamage: 5
-  maxDamage: 8
-  weakBonusMin: 6
-  weakBonusMax: 8
-  fireInterval: 0.23
+  minDamage: 4
+  maxDamage: 7
+  weakBonusMin: 7
+  weakBonusMax: 10
+  fireInterval: 0.28
   bulletsPerShot: 1
-  spreadDeg: 3.3
+  spreadDeg: 3.5
   bulletPrefab: {fileID: 6785224070344415373, guid: 7600e7705cabc2d4bb75e8786a8cc0f3, type: 3}
   bulletSpeed: 17
   bulletLifetime: 0.5
   infiniteAmmo: 0
-  ammoInitial: 18
+  ammoInitial: 21
   sfxShoot: {fileID: 8300000, guid: 4fdc05ec03f5c7c4bbfa57820f8dbfeb, type: 3}

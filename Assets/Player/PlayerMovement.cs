@@ -64,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
     // [백샷] 시선(오른쪽 바라봄 여부) 분리
     private bool facingRight = true;
     private int lastHDir = 0; // [백샷] 최근 수평 입력(-1/0/1)
+	private PlayerState ps; // 점프 SFX 재생용 참조
 
 	void Awake()
 	{
@@ -75,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
 		if (cooldownBarRoot) cooldownBarRoot.gameObject.SetActive(false); // 기본 숨김
         if (dashTrail) { dashTrail.emitting = false; dashTrail.Clear(); }  // 시작 시 숨김
         facingRight = !(sr && sr.flipX);
+		ps = GetComponent<PlayerState>();
 	}
 
 	void Update()
@@ -116,6 +118,15 @@ public class PlayerMovement : MonoBehaviour
 			{
 				float force = useHighJump ? highJumpForce : jumpForce;
 				rb.linearVelocity = new Vector2(rb.linearVelocity.x, force);
+				// 점프 SFX: 지상/수중이면 1단, 공중이면 2단
+				if (ps)
+				{
+					bool firstJump = isGrounded || isInWater;
+					var clip = firstJump ? ps.jumpSFX : ps.doubleJumpSFX;
+					if (clip) ps.PlaySFX(clip, 1f, 1f);  // 기본 볼륨/피치로 재생
+				}
+
+
 				isJumping = true;
 				jumpTimeCounter = jumpTime;
 				jumpBufferCounter = 0;
@@ -173,10 +184,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
-	// -----------------------
 	// 대시 입력 및 실행
-	// -----------------------
-	// -----------------------
 	void HandleDashInput()
 	{
 		// 입력/쿨타임/상태 가드
@@ -304,13 +312,11 @@ public class PlayerMovement : MonoBehaviour
 			isJumping = false;
 		}
 	}
-
 	void OnCollisionExit2D(Collision2D collision)
 	{
 		// 바닥에서 떨어짐
 		isGrounded = false;
 	}
-
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.CompareTag("Water")) isInWater = true;

@@ -15,15 +15,15 @@ MonoBehaviour:
   displayName: "\uC800\uACA9\uC18C\uCD1D"
   icon: {fileID: 21300000, guid: 693a9b460af8fa44999c7b9237a95429, type: 3}
   minDamage: 10
-  maxDamage: 20
+  maxDamage: 15
   weakBonusMin: 30
   weakBonusMax: 50
   fireInterval: 1.5
   bulletsPerShot: 1
-  spreadDeg: 0.7
+  spreadDeg: 0.88
   bulletPrefab: {fileID: 6785224070344415373, guid: c8054da77ee8ac848a24b21b83e3d938, type: 3}
   bulletSpeed: 25
-  bulletLifetime: 1
+  bulletLifetime: 1.5
   infiniteAmmo: 0
   ammoInitial: 7
   sfxShoot: {fileID: 8300000, guid: 49f49657faa572f46a38af28fd93cf3c, type: 3}

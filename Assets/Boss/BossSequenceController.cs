@@ -30,7 +30,8 @@ public class BossSequenceController : MonoBehaviour
 
 	[Tooltip("SceneObject 모드에서 지정 좌표로 이동할지 여부")]
 	public bool moveSceneActorToSpawnPos = true;
-
+	[SerializeField, Tooltip("외부(랜덤 스폰 등)가 이미 배치했으면 초기 위치 설정을 건너뜀")]
+	private bool skipInitialPlacement = true;
 	[Tooltip("보스 소환 월드 좌표")]
 	public Vector3 bossWorldPos = new Vector3(8, 2, 0);
 
@@ -170,9 +171,7 @@ public class BossSequenceController : MonoBehaviour
 			SpawnBossOnce();
 	}
 
-	// ───────────────────────────────────────────────────────
 	// 스폰 1회 처리
-	// ───────────────────────────────────────────────────────
 	void SpawnBossOnce()
 	{
 		if (spawned) return;
@@ -192,7 +191,10 @@ public class BossSequenceController : MonoBehaviour
 			case SpawnMode.SceneObject:
 				if (!sceneBossActor) { Debug.LogError("[BossSeq] sceneBossActor 미지정"); spawned = false; return; }
 				currentActor = sceneBossActor.transform;
-				if (moveSceneActorToSpawnPos) currentActor.position = bossWorldPos;
+
+				if (moveSceneActorToSpawnPos && !skipInitialPlacement)
+					currentActor.position = bossWorldPos;
+
 				sceneBossActor.SetActive(true);  // 여기서 활성화
 				break;
 		}

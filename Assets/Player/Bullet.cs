@@ -84,6 +84,7 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+
         if (!armed)
         {
             if (!warned) { Debug.LogWarning("[Bullet] Inject() 호출 전 충돌"); warned = true; }
@@ -92,8 +93,20 @@ public class Bullet : MonoBehaviour
 
         // // 약점 판정(태그)
         bool isWeak = other.CompareTag("WeakPoint");
+		if (other.CompareTag("Enemy") && other.GetComponentInParent<BossBase>() == null)
+		{
+			// 숫자: 맞은 '지점'에 표시
+			if (DamageNumberPool.I)
+				DamageNumberPool.I.ShowAttack(other, transform.position, damage, isWeak);
 
-        if (aoeOnHit) // ★ 로켓 등: 범위 피해
+			// 피해 전달: 부모까지 올리며 TakeDamage(int) 호출(없어도 예외 없음)
+			other.SendMessageUpwards("TakeDamage", damage, SendMessageOptions.DontRequireReceiver);
+
+			// 플레이어 탄은 적중 후 소멸
+			Die();
+			return;
+		}
+		if (aoeOnHit) // ★ 로켓 등: 범위 피해
         {
             // // 폭발 연출
             if (explosionFx) Instantiate(explosionFx, transform.position, Quaternion.identity);
@@ -132,28 +145,35 @@ public class Bullet : MonoBehaviour
                 }
             }
         }
-        else // 단일 타격 탄
-        {
-            var target = other.GetComponent<IDamageable>();
-            if (target != null)
-            {
-                target.TakeDamage(damage, isWeak, weakBonus);
+		else // 단일 타격 탄
+		{
+			var target = other.GetComponent<IDamageable>();
+			if (target != null)
+			{
+				target.TakeDamage(damage, isWeak, weakBonus);
+				// ... 기존 점수 반영 코드 유지 ...
+				Die();
+				return;
+			}
 
-                // ▼ 점수 반영: 단일 대상 최종 가정 피해
-                int dealt = isWeak ? damage + weakBonus : damage;
-                string scoreTag =
-                    isWeak ? "WeakPoint" :
-                    (other.transform.root && other.transform.root.CompareTag("Boss")) ? "Boss" :
-                    (other.CompareTag("Boss") ? "Boss" : null);
-
-                // ▼ 점수 반영(인트로 무적이면 스킵)
-                if (GameScore.I != null && !string.IsNullOrEmpty(scoreTag))
-                {
-                    if (!IsBossIntro(other))
-                        GameScore.I.OnDealDamage(scoreTag, dealt);
-                }
-            }
-        }
-        Die(); // // 충돌 후 소멸
-    }
+			// ▼ IDamageable이 없으면 Ouranos_ 엔티티에 직접 전달
+			//   - 엔티티 스크립트에 TakeDamage(int)만 있으면 동작
+			var chaser = other.GetComponentInParent<Ouranos_Boss.Ouranos_Chaser>();
+			if (chaser != null)
+			{
+				chaser.TakeDamage(damage);       // ★ 직통 피해
+				Die();
+				return;
+			}
+			var soldier = other.GetComponentInParent<Ouranos_Boss.Ouranos_Soldier>();
+			if (soldier != null)
+			{
+				soldier.TakeDamage(damage);      // ★ 직통 피해
+				Die();
+				return;
+			}
+			// 필요하면 태그 기반으로도 추가 가능:
+			// if (other.CompareTag("Enemy")) { other.SendMessageUpwards("TakeDamage", damage, SendMessageOptions.DontRequireReceiver); Die(); return; }
+		}
+	}
 }

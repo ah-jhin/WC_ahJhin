@@ -49,41 +49,48 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 		if (!sr) sr = GetComponentInChildren<SpriteRenderer>();
 	}
 
-    public void TakeDamage(int amount, bool weak, float weakMultiplier)
+	public void TakeDamage(int amount, bool weak, float weakMultiplier)
 	{
-		// 1) 무적/사망 상태면 무시
 		if (Time.time - lastHitTime < invincibleTime || isDead) return;
 		lastHitTime = Time.time;
 
-		// 2) 최종 데미지 계산(약점 적용이 필요 없으면 아래 한 줄로 대체: int final = amount;)
 		int final = amount + (weak ? Mathf.RoundToInt(weakMultiplier) : 0);
-
-		// 3) 체력 감소
 		currentHP = Mathf.Max(0, currentHP - final);
 
 		if (sfx && hurtSFX) sfx.PlayOneShot(hurtSFX);
 
-		// 6) 사망 처리
+		// ★ 피격 숫자: DamageNumberPool 사용
+		if (DamageNumberPool.I) DamageNumberPool.I.ShowHit(transform.position, final);
+		// 기존 HUD 표시도 유지하려면 아래 한 줄 유지
+		hud?.ShowDamage(transform.position, final, Color.red);
+
 		if (currentHP <= 0)
 		{
 			isDead = true;
 			OnDead();
 		}
-		hud?.ShowDamage(transform.position, final, Color.red);	// 피격 피해 표시
-		hud?.SetHP(currentHP, maxHP);	// UI 갱신
+		hud?.SetHP(currentHP, maxHP);
 	}
 
-	/// <summary>레거시 호환. 과거 코드가 TakeDamage(int)만 호출해도 동작.</summary>
+	// 레거시 호환
 	public void TakeDamage(int amount) { TakeDamage(amount, false, 1f); }
 
 	/// <summary>체력 회복</summary>
 	public void Heal(int amount)
 	{
-		if (isDead) return;
+		int before = currentHP;
 		currentHP = Mathf.Min(maxHP, currentHP + Mathf.Max(0, amount));
-		// UIHUD 갱신 필요 시 호출
-	}
 
+		// 회복 숫자(증가분이 있을 때만)
+		int gained = currentHP - before;
+		if (gained > 0 && DamageNumberPool.I)
+			DamageNumberPool.I.ShowHeal(transform.position, gained);
+
+		// 죽은 상태면 체력만 갱신하고 종료
+		if (isDead) return;
+
+		hud?.SetHP(currentHP, maxHP);
+	}
 	/// <summary>깜빡임 연출(선택)</summary>
 	System.Collections.IEnumerator Blink()
 	{

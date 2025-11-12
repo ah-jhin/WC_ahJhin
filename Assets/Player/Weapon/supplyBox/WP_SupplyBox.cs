@@ -28,7 +28,7 @@ public class WP_SupplyBox : MonoBehaviour
     public GameObject srPrefab;
     public GameObject shotgunPrefab;
     public GameObject rocketPrefab;
-    public GameObject smgPrefab;                    // ★ SMG 프리팹
+    public GameObject smgPrefab;                
 
     [Header("외형(아이콘)")]
     public SpriteRenderer iconRenderer;   // 상자 위 아이콘용 SR
@@ -36,17 +36,18 @@ public class WP_SupplyBox : MonoBehaviour
     WP_SupplyBox.SupplyType _rolled;      // 스폰 시 확정된 타입
 
     [Header("SFX(습득)")]
-    public AudioSource sfx;                         // 없으면 자동 추가
+    public AudioSource sfx;                         
     public AudioClip sfxHeal;
     public AudioClip sfxRevolver;
     public AudioClip sfxAR;
     public AudioClip sfxSR;
     public AudioClip sfxShotgun;
     public AudioClip sfxRocket;
-    public AudioClip sfxSMG;                        // ★ SMG SFX
-    public float sfxVolume = 1f;
+    public AudioClip sfxSMG;
+	public float sfxVolume = 1f;
+	public float sfxPitch = 1f;
 
-    Collider2D col;
+	Collider2D col;
     float dieAt;
 
     void Awake()
@@ -162,19 +163,34 @@ public class WP_SupplyBox : MonoBehaviour
             default: return null;
         }
     }
+	void PlayPickupSfx(SupplyType t)
+	{
+		AudioClip clip = null;
+		switch (t)
+		{
+			case SupplyType.Heal: clip = sfxHeal; break;
+			case SupplyType.Revolver: clip = sfxRevolver; break;
+			case SupplyType.AR: clip = sfxAR; break;
+			case SupplyType.SR: clip = sfxSR; break;
+			case SupplyType.Shotgun: clip = sfxShotgun; break;
+			case SupplyType.Rocket: clip = sfxRocket; break;
+			case SupplyType.SMG: clip = sfxSMG; break;
+		}
+		if (!clip) return;
 
-    void PlayPickupSfx(SupplyType t)
-    {
-        AudioClip clip = null;
-        switch (t) {
-            case SupplyType.Heal:     clip = sfxHeal; break;
-            case SupplyType.Revolver: clip = sfxRevolver; break;
-            case SupplyType.AR:       clip = sfxAR; break;
-            case SupplyType.SR:       clip = sfxSR; break;
-            case SupplyType.Shotgun:  clip = sfxShotgun; break;
-            case SupplyType.Rocket:   clip = sfxRocket; break;
-            case SupplyType.SMG:      clip = sfxSMG; break;
-        }
-        if (clip) AudioSource.PlayClipAtPoint(clip, transform.position, sfxVolume); 
-    }
+		float vol = Mathf.Clamp01(sfxVolume);
+		float pit = Mathf.Clamp(sfxPitch, 0.1f, 3f);
+
+		// 상자 파괴와 무관한 임시 재생자
+		var go = new GameObject("SupplyBox_SFX");
+		go.transform.position = transform.position;
+		var a = go.AddComponent<AudioSource>();
+		a.playOnAwake = false;
+		a.spatialBlend = 0f;  // 2D
+		a.volume = vol;
+		a.pitch = pit;
+		a.PlayOneShot(clip);
+		Destroy(go, clip.length / pit);
+	}
+
 }

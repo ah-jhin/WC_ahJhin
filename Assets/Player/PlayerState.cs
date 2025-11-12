@@ -20,17 +20,26 @@ public class PlayerState : MonoBehaviour
     public AudioClip moveSFX;                 // 이동 발소리
     public AudioClip jumpSFX;                 // 1단 점프
     public AudioClip doubleJumpSFX;           // 2단 점프
-    // ※ 무기 교체/드롭 SFX는 WP_Manager가 담당함. 여기서 다루지 않음
+	[Header("SFX Mixer")]
+	[SerializeField, Range(0f, 1f)] private float moveVolume = 1f;
+	[SerializeField, Range(0.1f, 3f)] private float movePitch = 1f;
+	[SerializeField, Range(0f, 1f)] private float jumpVolume = 1f;
+	[SerializeField, Range(0.1f, 3f)] private float jumpPitch = 1f;
+	[SerializeField, Range(0f, 1f)] private float doubleJumpVolume = 1f;
+	[SerializeField, Range(0.1f, 3f)] private float doubleJumpPitch = 1f;
 
-    // 내부 컴포넌트
-    private Animator animator;
+	// 내부 컴포넌트
+	private Animator animator;
     private Animation legacyAnim;
     private SpriteRenderer spriteRenderer;
 
     // 상태 및 발소리 타이머
     private State currentState = State.Idle;
     private float footstepTimer = 0f;
-    [SerializeField] private float footstepInterval = 0.5f;
+	public void PlayJumpNow() => PlaySFX(jumpSFX, jumpVolume, jumpPitch);
+	public void PlayDoubleJumpNow() => PlaySFX(doubleJumpSFX, doubleJumpVolume, doubleJumpPitch);
+
+	[SerializeField] private float footstepInterval = 0.5f;
 
     // Animator 레이어 인덱스(보통 0)
     private const int BaseLayer = 0;
@@ -104,8 +113,8 @@ public class PlayerState : MonoBehaviour
             footstepTimer += Time.deltaTime;
             if (footstepTimer >= footstepInterval)
             {
-                PlaySFX(moveSFX);     // ★발소리
-                footstepTimer = 0f;
+				PlaySFX(moveSFX, moveVolume, movePitch);  // 발소리(볼륨/피치 적용)
+				footstepTimer = 0f;
             }
         }
         else
@@ -115,17 +124,34 @@ public class PlayerState : MonoBehaviour
 
     }
 
-    /// <summary>
-    /// SFX 재생 헬퍼. clip 또는 sfx가 없으면 아무 것도 하지 않음.
-    /// </summary>
-    private void PlaySFX(AudioClip clip)
-    {
-        if (!clip || !sfx) return; // 널 방어
-        sfx.PlayOneShot(clip);     // 단발 재생
-    }
-    public void OnAnimEvent() { /* 빈 이벤트 처리용. 아무 것도 하지 않음. */ }
+	// SFX 재생(볼륨/피치 지원). pitch != 1 인 경우 임시 AudioSource를 생성해 안전 재생
+	public void PlaySFX(AudioClip clip, float volume, float pitch)
+	{
+		if (!clip) return;
 
-    void OnValidate()
+		volume = Mathf.Clamp01(volume);
+		pitch = Mathf.Clamp(pitch, 0.1f, 3f);
+
+		// 피치 1이면 기존 AudioSource로 간단 재생
+		if (pitch == 1f && sfx)
+		{
+			sfx.PlayOneShot(clip, volume);
+			return;
+		}
+
+		// 피치 필요 시: 임시 GO에 AudioSource 붙여 재생 후 파괴(자기 완결, 안전)
+		var go = new GameObject("SFX_Temp");
+		go.transform.position = transform.position;
+		var a = go.AddComponent<AudioSource>();
+		a.playOnAwake = false;
+		a.spatialBlend = 0f;      // 2D
+		a.volume = volume;
+		a.pitch = pitch;
+		a.PlayOneShot(clip);
+		Destroy(go, clip.length / pitch);
+	}
+
+	void OnValidate()
     {
         // 에디터에서 인스펙터 비워도 자동 참조
         if (!sfx) sfx = GetComponent<AudioSource>();
@@ -133,12 +159,10 @@ public class PlayerState : MonoBehaviour
     }
 
 
-    /// <summary>
     /// 존재 검증 후 애니메이션 재생.
     /// - Animator가 있으면 Animator 우선 재생. 해당 스테이트가 없으면 스킵.
     /// - Animator가 없고 Legacy가 있으면 Legacy 클립 존재 시만 재생.
     /// - 둘 다 없거나 이름이 불일치하면 아무 것도 하지 않음.
-    /// </summary>
     private void SafePlayAnimation(State state)
     {
         string name = state.ToString(); // "Idle" 등
