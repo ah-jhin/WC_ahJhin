@@ -120,10 +120,19 @@ public class CameraController : MonoBehaviour
 	/// <summary> 화면 흔들림(Perlin 기반): duration초 동안 magnitude 강도로 </summary>
 	public void Shake(float duration, float magnitude = 0.2f, float frequency = 25f)
 	{
-		// 이미 흔들리는 중이면 기존 코루틴을 멈추고 새로 시작한다 (중복 진동 제어)
+		// 이미 흔들리는 중이면
 		if (_isShaking && _shakeCR != null)
+		{
+			// 1) 이전 코루틴 종료
 			StopCoroutine(_shakeCR);
 
+			// 2) 이전 흔들림이 저장해 둔 원래 위치로 즉시 복구
+			//    (이걸 하지 않으면 '살짝 밀려 있는 위치'가 새 기준이 되어 드리프트 발생)
+			transform.localPosition = _shakeOriginLocal;
+			_isShaking = false;
+		}
+
+		// 3) 새 흔들림 시작
 		_shakeCR = StartCoroutine(CoShake(duration, magnitude, frequency));
 	}
 
@@ -135,8 +144,14 @@ public class CameraController : MonoBehaviour
 	/// </summary>
 	public void StartRotate(float angle, float speed = 90f, bool infinite = false)
 	{
-		if (_rotateCR != null) StopCoroutine(_rotateCR);
-		_rotateCR = StartCoroutine(CoRotate(angle, Mathf.Max(0f, speed), infinite));
+		if (_rotateCR != null)
+			StopCoroutine(_rotateCR);
+
+		// 무한 회전일 때는 speed 부호(시계/반시계)를 그대로 사용한다.
+		// 각도 제한 회전일 때는 speed 크기(양수)만 사용하고, 방향은 angle 부호로 결정된다.
+		float s = infinite ? speed : Mathf.Abs(speed);
+
+		_rotateCR = StartCoroutine(CoRotate(angle, s, infinite));
 	}
 	/// <summary> 회전 중단 및 기본 회전 복원 </summary>
 	public void StopRotate(bool reset = true)

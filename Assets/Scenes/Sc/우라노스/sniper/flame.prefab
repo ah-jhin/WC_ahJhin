@@ -140,6 +140,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64c4c5ba10e58f4eabc256883b8014e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ouranos_Boss.Ouranos_FlameZone
-  minDamage: 1
-  maxDamage: 2
-  life: 5
+  Ouranos_lifeSeconds: 1
+  Ouranos_minDamage: 3
+  Ouranos_maxDamage: 5
+  Ouranos_tickInterval: 0.25
+  Ouranos_perTargetIFrameSeconds: 2.5
+  Ouranos_tickSfx: {fileID: 0}
+  Ouranos_sfxVolume: 1

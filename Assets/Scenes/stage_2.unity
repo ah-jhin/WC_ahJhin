@@ -3859,7 +3859,7 @@ SpriteRenderer:
   m_Size: {x: 10, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!222 &983452245
@@ -7078,7 +7078,7 @@ SpriteRenderer:
   m_Size: {x: 9.71, y: 9.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1701162142
@@ -7366,6 +7366,12 @@ MonoBehaviour:
   moveSFX: {fileID: 0}
   jumpSFX: {fileID: 8300000, guid: bef03a275617d59428b2e73063fa20dc, type: 3}
   doubleJumpSFX: {fileID: 8300000, guid: 8ce9feea3ab3d2046a759db5d34bd28d, type: 3}
+  moveVolume: 1
+  movePitch: 1
+  jumpVolume: 1
+  jumpPitch: 1
+  doubleJumpVolume: 1
+  doubleJumpPitch: 1
   footstepInterval: 0.5
 --- !u!111 &1701162150
 Animation:
@@ -8056,7 +8062,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f1ad134180b1ec40b63411e000e984f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossSequenceController
+  spawnMode: 0
   bossPrefab: {fileID: 8805404381573595782, guid: 7ddc64c5e5dc7a648a660a9ce62f3149, type: 3}
+  sceneBossActor: {fileID: 0}
+  moveSceneActorToSpawnPos: 1
+  skipInitialPlacement: 1
   bossWorldPos: {x: 9, y: 1.5, z: 0}
   bossBarRoot: {fileID: 1787125110}
   hpSlider: {fileID: 1787125111}
@@ -8070,6 +8080,10 @@ MonoBehaviour:
   bgmSource: {fileID: 849617805}
   bgmClip: {fileID: 8300000, guid: 2df1818366ea838418be30fe06279eb6, type: 3}
   loopBgm: 1
+  startBackgroundTweens: []
+  startCameraEffects: []
+  startPatternsOnSpawn: 1
+  patternStartDelay: 5
 --- !u!114 &1848770943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8118,10 +8132,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   colorFadeTime: 0
-  shakeAmp: 0
-  shakeFreq: 0
-  shakeOnAppear: 0
-  shakeOnAppearTime: 0
   sfxAppear: {fileID: 8300000, guid: fbcbe6df829daa24683de8faabf973e5, type: 3}
   sfxDisappear: {fileID: 8300000, guid: 5e59d58826ed41c40820d4ba6688c905, type: 3}
   fxAppear: {fileID: 0}
@@ -8130,6 +8140,13 @@ MonoBehaviour:
   introInvincible: 1
   introSuppressThreshold: 1
   defaultColor: {r: 0, g: 1, b: 1, a: 1}
+  defaultTransitionTime: 0.25
+  defaultUseGradient: 0
+  defaultGradientColors: []
+  defaultGradientCycleSeconds: 2
+  defaultUseBlink: 0
+  defaultBlinkColors: []
+  defaultBlinkInterval: 0.12
   thresholds:
   - hpLessEqual: 300
     color: {r: 1, g: 0, b: 0, a: 1}
@@ -8137,7 +8154,15 @@ MonoBehaviour:
     fx: {fileID: 0}
     bgmClip: {fileID: 0}
     bgmLoop: 0
+    transitionTime: 0
+    useGradient: 0
+    gradientColors: []
+    gradientCycleSeconds: 0
+    useBlink: 0
+    blinkColors: []
+    blinkInterval: 0
   deathDelay: 0
+  hpFxEvents: []
 --- !u!4 &1848770944
 Transform:
   m_ObjectHideFlags: 0
@@ -8299,30 +8324,108 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27fe5e1f8bbdfd14f9bbf41ee5ae6b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pattern
+  bossBase: {fileID: 0}
+  useTestHp: 1
+  testMaxHp: 100
+  testCurrentHp: 100
+  autoStart: 1
+  emptyFallbackWait: 0.5
+  waitForSpawnSignal: 0
+  startDelayAfterSpawn: 0
+  onWarningBackgrounds: []
+  onWarningCameras: []
+  onAttackBackgrounds: []
+  onAttackCameras: []
   randomPatterns:
   - minHpPercent: 0
     maxHpPercent: 100
     prefab: {fileID: 1194524166280458267, guid: c895418f8edb2c142bbb412959919dd7, type: 3}
     spawnPoint: {fileID: 497300152}
-    moveTarget: {fileID: 0}
-    teleport: 0
+    warningPrefab: {fileID: 0}
+    warningPoint: {fileID: 0}
+    warningDuration: 0
+    warningSfx: {fileID: 0}
+    warningSfxVolume: 0.8
+    attackDelayAfterWarning: 0
+    fakeWarningChance: 0
+    applyRotation: 1
+    rotationSource: 1
+    lookTarget: {fileID: 0}
+    customAngleZ: 0
+    angleOffsetZ: 0
+    alsoSetRigidbody2D: 1
+    warnApplyRotation: 1
+    warnRotationSource: 3
+    warnLookTarget: {fileID: 0}
+    warnCustomAngleZ: 0
+    warnAngleOffsetZ: 0
+    warnTrackTarget: 1
+    warnAlsoSetRigidbody2D: 1
+    spawnAtWarning: 0
+    snapshotSpawnPointOnWarning: 0
+    spawnOffset: {x: 0, y: 0, z: 0}
+    inheritRotation: 1
+    attackPrefabLifetime: 0
+    attackSfx: {fileID: 0}
+    attackSfxVolume: 0.85
+    warnBackgrounds: []
+    warnCameras: []
+    attackBackgrounds: []
+    attackCameras: []
+    doSlowMove: 0
+    slowMoveDelay: 0
+    slowMoveTarget: {fileID: 0}
+    slowMoveDuration: 0.5
+    doTeleport: 0
+    teleportDelay: 0
+    teleportTarget: {fileID: 0}
     delayMin: 80
     delayMax: 120
-    sfx: {fileID: 8300000, guid: 3e1b93eafa8604946aa5fa11fef78091, type: 3}
-    sfxVolume: 1
   - minHpPercent: 0
     maxHpPercent: 100
     prefab: {fileID: 1878423936921186850, guid: 70ab95dd7da713445b8e648701dbea36, type: 3}
     spawnPoint: {fileID: 28922869}
-    moveTarget: {fileID: 0}
-    teleport: 0
+    warningPrefab: {fileID: 0}
+    warningPoint: {fileID: 0}
+    warningDuration: 0
+    warningSfx: {fileID: 0}
+    warningSfxVolume: 0.8
+    attackDelayAfterWarning: 0
+    fakeWarningChance: 0
+    applyRotation: 1
+    rotationSource: 1
+    lookTarget: {fileID: 0}
+    customAngleZ: 0
+    angleOffsetZ: 0
+    alsoSetRigidbody2D: 1
+    warnApplyRotation: 1
+    warnRotationSource: 3
+    warnLookTarget: {fileID: 0}
+    warnCustomAngleZ: 0
+    warnAngleOffsetZ: 0
+    warnTrackTarget: 1
+    warnAlsoSetRigidbody2D: 1
+    spawnAtWarning: 0
+    snapshotSpawnPointOnWarning: 0
+    spawnOffset: {x: 0, y: 0, z: 0}
+    inheritRotation: 1
+    attackPrefabLifetime: 0
+    attackSfx: {fileID: 0}
+    attackSfxVolume: 0.85
+    warnBackgrounds: []
+    warnCameras: []
+    attackBackgrounds: []
+    attackCameras: []
+    doSlowMove: 0
+    slowMoveDelay: 0
+    slowMoveTarget: {fileID: 0}
+    slowMoveDuration: 0.5
+    doTeleport: 0
+    teleportDelay: 0
+    teleportTarget: {fileID: 0}
     delayMin: 80
     delayMax: 120
-    sfx: {fileID: 8300000, guid: ec57e00894dcf82409f59e5f0a35548b, type: 3}
-    sfxVolume: 1
-  fixedPatternTriggerPercent: 0
-  fixedPatterns: []
-  fixedPatternRepeatCount: 1
+  fixedPatternSets: []
 --- !u!1001 &1883060421
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8712,6 +8815,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DamageNumberPool
   prefab: {fileID: 3746291733466357458, guid: 082ee90d0f9a73d45ad7f770c90e3d7a, type: 3}
   preload: 3
+  colAttack: {r: 1, g: 0.95, b: 0.3, a: 1}
+  colWeak: {r: 1, g: 0.4, b: 0.4, a: 1}
+  colHit: {r: 0.8, g: 0.8, b: 1, a: 1}
+  colHeal: {r: 0.4, g: 1, b: 0.4, a: 1}
 --- !u!1 &2026418671
 GameObject:
   m_ObjectHideFlags: 0

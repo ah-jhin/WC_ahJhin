@@ -140,6 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43157f8c7839014080a145379709866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ouranos_Boss.Ouranos_ElectricZone
-  life: 3
-  slowMultiplier: 0.5
-  slowDuration: 0.5
+  Ouranos_lifeSeconds: 5
+  Ouranos_moveMul: 0.8
+  Ouranos_jumpMul: 0.8
+  Ouranos_refreshInterval: 0.25
+  Ouranos_slowDuration: 1.5

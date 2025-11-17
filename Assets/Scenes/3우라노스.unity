@@ -5384,7 +5384,7 @@ SpriteRenderer:
   m_SortingLayerID: 380514273
   m_SortingLayer: 3
   m_SortingOrder: 100
-  m_Sprite: {fileID: -855298285791758126, guid: 142e55185c951ea4a91b64ed42d4a1a6, type: 3}
+  m_Sprite: {fileID: 8873398902420103280, guid: bd45271f00ec4a74abd546b4eccae80b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -38854,11 +38854,21 @@ MonoBehaviour:
   Ouranos_fireOrigin: {fileID: 4855609}
   Ouranos_reticlePrefab: {fileID: 5425606771013508842, guid: 48315688037f2ad49b1346f017b7f594, type: 3}
   Ouranos_bulletPrefab: {fileID: 2516672668619819908, guid: f081f942f3e26574b8d641ed69fb2596, type: 3}
-  Ouranos_startDelaySeconds: 3
+  Ouranos_startDelaySeconds: 2.5
   Ouranos_startAnchor: 0
-  Ouranos_reticleOffsetBoss: {x: 0, y: 1.5}
+  Ouranos_reticleOffsetBoss: {x: 0, y: 0}
   Ouranos_reticleOffsetPlayer: {x: 30, y: 10}
+  Ouranos_selectionMode: 1
   Ouranos_cumulativeAbilities: 1
+  Ouranos_includeDefaultBulletAlways: 0
+  Ouranos_includeDefaultBulletEvenInSinglePhase: 0
+  Ouranos_noImmediateRepeat: 1
+  Ouranos_noReuseUntilExhausted: 0
+  Ouranos_fanDegrees: 10
+  Ouranos_sideOffset: 0
+  Ouranos_playShotSfxHere: 0
+  Ouranos_shotSfx: {fileID: 0}
+  Ouranos_shotSfxVolume: 0.8
   Ouranos_phases:
   - Ouranos_thresholdPercent: 100
     Ouranos_ability: 0
@@ -38881,32 +38891,12 @@ MonoBehaviour:
     Ouranos_overrideReticleColor: 1
     Ouranos_reticleColor: {r: 1, g: 1, b: 1, a: 1}
   - Ouranos_thresholdPercent: 76
-    Ouranos_ability: -1
+    Ouranos_ability: 0
     Ouranos_extraSpeed: 0
-    Ouranos_burstCount: 2
-    Ouranos_burstInterval: 0.4
-    Ouranos_penetratePlayer: 1
-    Ouranos_aimSeconds: 5
-    Ouranos_lockSeconds: 0
-    Ouranos_cooldownRange: {x: 1.5, y: 1.5}
-    Ouranos_useInitialBoost: 1
-    Ouranos_initialBoostSeconds: 1
-    Ouranos_initialBoostSpeed: 200
-    Ouranos_followSpeed: 25
-    Ouranos_useSmoothDamp: 1
-    Ouranos_smoothTime: 0.02
-    Ouranos_stopDistance: 0.03
-    Ouranos_reticleLifeAfterShot: 1
-    Ouranos_phaseBulletPrefab: {fileID: 7661389304196523065, guid: 7a62c0c382aeb3f419fbc4f8a9528aaa, type: 3}
-    Ouranos_overrideReticleColor: 1
-    Ouranos_reticleColor: {r: 0, g: 1, b: 0, a: 1}
-  - Ouranos_thresholdPercent: 76
-    Ouranos_ability: 8
-    Ouranos_extraSpeed: 30
     Ouranos_burstCount: 1
     Ouranos_burstInterval: 0
     Ouranos_penetratePlayer: 1
-    Ouranos_aimSeconds: 5
+    Ouranos_aimSeconds: 4
     Ouranos_lockSeconds: 0
     Ouranos_cooldownRange: {x: 1.5, y: 1.5}
     Ouranos_useInitialBoost: 1
@@ -38917,16 +38907,16 @@ MonoBehaviour:
     Ouranos_smoothTime: 0.02
     Ouranos_stopDistance: 0.03
     Ouranos_reticleLifeAfterShot: 1
-    Ouranos_phaseBulletPrefab: {fileID: 7530985725936788700, guid: f699ebc8b97b1b340971b88c3fd29177, type: 3}
+    Ouranos_phaseBulletPrefab: {fileID: 2516672668619819908, guid: f081f942f3e26574b8d641ed69fb2596, type: 3}
     Ouranos_overrideReticleColor: 1
     Ouranos_reticleColor: {r: 0, g: 1, b: 1, a: 1}
   - Ouranos_thresholdPercent: 51
-    Ouranos_ability: 1
-    Ouranos_extraSpeed: 0
+    Ouranos_ability: 0
+    Ouranos_extraSpeed: 5
     Ouranos_burstCount: 1
     Ouranos_burstInterval: 0
     Ouranos_penetratePlayer: 1
-    Ouranos_aimSeconds: 5
+    Ouranos_aimSeconds: 3
     Ouranos_lockSeconds: 0
     Ouranos_cooldownRange: {x: 1.5, y: 1.5}
     Ouranos_useInitialBoost: 1
@@ -38937,36 +38927,16 @@ MonoBehaviour:
     Ouranos_smoothTime: 0.02
     Ouranos_stopDistance: 0.03
     Ouranos_reticleLifeAfterShot: 1
-    Ouranos_phaseBulletPrefab: {fileID: 8022631073573304109, guid: 35a0831a7283f0b44a6df25ed7606185, type: 3}
-    Ouranos_overrideReticleColor: 1
-    Ouranos_reticleColor: {r: 1, g: 0.5490196, b: 0, a: 1}
-  - Ouranos_thresholdPercent: 51
-    Ouranos_ability: 32
-    Ouranos_extraSpeed: 0
-    Ouranos_burstCount: 1
-    Ouranos_burstInterval: 0
-    Ouranos_penetratePlayer: 1
-    Ouranos_aimSeconds: 5
-    Ouranos_lockSeconds: 0
-    Ouranos_cooldownRange: {x: 1.5, y: 1.5}
-    Ouranos_useInitialBoost: 1
-    Ouranos_initialBoostSeconds: 1
-    Ouranos_initialBoostSpeed: 200
-    Ouranos_followSpeed: 25
-    Ouranos_useSmoothDamp: 1
-    Ouranos_smoothTime: 0.02
-    Ouranos_stopDistance: 0.03
-    Ouranos_reticleLifeAfterShot: 1
-    Ouranos_phaseBulletPrefab: {fileID: 4660011712880850391, guid: 4e903217e455a5543a392cf51396ac18, type: 3}
+    Ouranos_phaseBulletPrefab: {fileID: 2516672668619819908, guid: f081f942f3e26574b8d641ed69fb2596, type: 3}
     Ouranos_overrideReticleColor: 1
     Ouranos_reticleColor: {r: 0, g: 0, b: 1, a: 1}
   - Ouranos_thresholdPercent: 26
-    Ouranos_ability: 4
-    Ouranos_extraSpeed: 0
-    Ouranos_burstCount: 1
-    Ouranos_burstInterval: 0
+    Ouranos_ability: 0
+    Ouranos_extraSpeed: 10
+    Ouranos_burstCount: 2
+    Ouranos_burstInterval: 0.4
     Ouranos_penetratePlayer: 1
-    Ouranos_aimSeconds: 5
+    Ouranos_aimSeconds: 3
     Ouranos_lockSeconds: 0
     Ouranos_cooldownRange: {x: 1.5, y: 1.5}
     Ouranos_useInitialBoost: 1
@@ -38977,27 +38947,7 @@ MonoBehaviour:
     Ouranos_smoothTime: 0.02
     Ouranos_stopDistance: 0.03
     Ouranos_reticleLifeAfterShot: 1
-    Ouranos_phaseBulletPrefab: {fileID: 4660011712880850391, guid: 4e903217e455a5543a392cf51396ac18, type: 3}
-    Ouranos_overrideReticleColor: 1
-    Ouranos_reticleColor: {r: 0.5803922, g: 0, b: 0.8274511, a: 1}
-  - Ouranos_thresholdPercent: 26
-    Ouranos_ability: 48
-    Ouranos_extraSpeed: 0
-    Ouranos_burstCount: 1
-    Ouranos_burstInterval: 0
-    Ouranos_penetratePlayer: 1
-    Ouranos_aimSeconds: 5
-    Ouranos_lockSeconds: 0
-    Ouranos_cooldownRange: {x: 1.5, y: 1.5}
-    Ouranos_useInitialBoost: 1
-    Ouranos_initialBoostSeconds: 1
-    Ouranos_initialBoostSpeed: 200
-    Ouranos_followSpeed: 25
-    Ouranos_useSmoothDamp: 1
-    Ouranos_smoothTime: 0.02
-    Ouranos_stopDistance: 0.03
-    Ouranos_reticleLifeAfterShot: 1
-    Ouranos_phaseBulletPrefab: {fileID: 2345172446056965371, guid: bbe16863d83caac4aba5fd699531883c, type: 3}
+    Ouranos_phaseBulletPrefab: {fileID: 2516672668619819908, guid: f081f942f3e26574b8d641ed69fb2596, type: 3}
     Ouranos_overrideReticleColor: 1
     Ouranos_reticleColor: {r: 1, g: 0, b: 0, a: 1}
   Ouranos_verboseDebug: 1
@@ -42918,7 +42868,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -440}
+  m_AnchoredPosition: {x: 0, y: -400}
   m_SizeDelta: {x: 100, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &981513923
@@ -42941,7 +42891,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB108\uB97C \uC8FD\uC5EC\uC57C\uB9CC \uD588\uB2E4"
+  m_text: "\uB10C \uC2E4\uD328\uD588\uAE30\uC5D0 \uB3C4\uB9DD\uCCE4\uC5B4\uC57C \uD588\uB2E4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 227965274d5c0ae43bbc4a9905bfd1d0, type: 2}
   m_sharedMaterial: {fileID: -4047341448822359335, guid: 227965274d5c0ae43bbc4a9905bfd1d0, type: 2}
@@ -43239,7 +43189,7 @@ SpriteRenderer:
   m_Size: {x: 44, y: 44}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!222 &983452245
@@ -44342,17 +44292,17 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1002597990}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5384617, y: 1.2307693, z: 1.2307693}
+  m_LocalPosition: {x: 0, y: 0, z: -0.000017459883}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 398236435}
-  m_Father: {fileID: 1388617554}
+  m_Father: {fileID: 1787125110}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -77.3077, y: 7.602092}
-  m_SizeDelta: {x: 85.29553, y: -0.7459593}
+  m_AnchoredPosition: {x: 2.5, y: 0}
+  m_SizeDelta: {x: -5.360504, y: -0.0000047683716}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1010026113
 PrefabInstance:
@@ -47990,7 +47940,7 @@ SpriteRenderer:
   m_Size: {x: 2.4, y: 1.35}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!222 &1072453948
@@ -60972,7 +60922,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -39.03, y: -6.2404}
+  m_AnchoredPosition: {x: -39.03, y: -5}
   m_SizeDelta: {x: 106.38815, y: 12.48076}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1354005026
@@ -62824,13 +62774,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.65, y: 0.81249994, z: 0.81249994}
   m_ConstrainProportionsScale: 1
-  m_Children:
-  - {fileID: 1002597991}
+  m_Children: []
   m_Father: {fileID: 1787125110}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 52.75, y: -6.1767}
+  m_AnchoredPosition: {x: 52.75, y: -5}
   m_SizeDelta: {x: 64.34396, y: 12.60812}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1391299992
@@ -81256,6 +81205,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 940482724}
+  - {fileID: 1002597991}
   - {fileID: 1388617554}
   - {fileID: 1354005025}
   m_Father: {fileID: 1636027321}
@@ -83123,7 +83073,7 @@ SpriteRenderer:
   m_Size: {x: 2.4, y: 1.35}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!222 &1839869224
@@ -83486,7 +83436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossBase
   maxHP: 1000
-  bossName: "\uC6B0\uB77C\uB178\uC2A4, \uC2A4\uB098\uC774\uD37C"
+  bossName: "\uC6B0\uB77C\uB178\uC2A4, \uD558\uB298 \uC18D \uC2A4\uB098\uC774\uD37C"
   actor: {fileID: 0}
   bossBarRoot: {fileID: 1787125110}
   hpSlider: {fileID: 1787125111}
@@ -83528,11 +83478,11 @@ MonoBehaviour:
   audioSrc: {fileID: 1848770945}
   introInvincible: 1
   introSuppressThreshold: 1
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  defaultColor: {r: 0, g: 0.39215687, b: 1, a: 1}
   defaultTransitionTime: 0
   defaultUseGradient: 0
   defaultGradientColors: []
-  defaultGradientCycleSeconds: 2.5
+  defaultGradientCycleSeconds: 5
   defaultUseBlink: 0
   defaultBlinkColors: []
   defaultBlinkInterval: 0.12
@@ -83546,8 +83496,8 @@ MonoBehaviour:
     transitionTime: 0
     useGradient: 1
     gradientColors:
-    - {r: 1, g: 1, b: 1, a: 1}
-    - {r: 0, g: 0.98944926, b: 1, a: 1}
+    - {r: 0, g: 0.39215687, b: 1, a: 1}
+    - {r: 0, g: 0, b: 1, a: 1}
     gradientCycleSeconds: 3
     useBlink: 0
     blinkColors: []
@@ -83561,9 +83511,9 @@ MonoBehaviour:
     transitionTime: 0
     useGradient: 1
     gradientColors:
-    - {r: 1, g: 1, b: 1, a: 0}
-    - {r: 0, g: 0.43023157, b: 1, a: 1}
-    gradientCycleSeconds: 2.5
+    - {r: 0, g: 0.39215687, b: 1, a: 1}
+    - {r: 0.29803923, g: 0, b: 1, a: 1}
+    gradientCycleSeconds: 2
     useBlink: 0
     blinkColors: []
     blinkInterval: 0
@@ -83576,9 +83526,9 @@ MonoBehaviour:
     transitionTime: 0
     useGradient: 1
     gradientColors:
-    - {r: 1, g: 1, b: 1, a: 1}
-    - {r: 0.015249729, g: 0, b: 1, a: 1}
-    gradientCycleSeconds: 2
+    - {r: 0, g: 0.39215687, b: 1, a: 1}
+    - {r: 1, g: 0, b: 0, a: 1}
+    gradientCycleSeconds: 1
     useBlink: 0
     blinkColors: []
     blinkInterval: 0
@@ -83779,8 +83729,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2220646c17d205642843f951b0afabf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NextScenes
-  nextSceneName: stage_3
-  menuSceneName: menu
+  nextSceneName: "4\uC544\uC2A4\uD2B8\uB77C"
+  menuSceneName: 0menu
   boss: {fileID: 0}
   bossAutoDelay: 5
   menuKey: 0

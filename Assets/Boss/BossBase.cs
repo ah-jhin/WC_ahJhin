@@ -44,6 +44,7 @@ public class BossBase : MonoBehaviour, IDamageable
 	AudioClip _lastBgmClip = null;                      // 마지막 요청한 BGM
 	public bool introInvincible = true;                 // 인트로 무적
 	public bool introSuppressThreshold = true;          // 인트로 동안 임계(색/BGM) 억제
+	bool _needRestartFxOnce = false;
 	bool _isChargingIntro = false;
 	public bool IsIntroNoScore => _isChargingIntro && introInvincible;
 
@@ -273,42 +274,61 @@ public class BossBase : MonoBehaviour, IDamageable
 	{
 		if (!hpFill) return;
 
-		// 인트로 충전 중엔 임계 억제 옵션
+		// 0) 인트로(HP 충전) 동안은 임계 억제: 기본색으로만 페이드하고,
+		//    충전이 끝난 다음 최초 1회는 FX를 강제로 다시 켜도록 플래그를 남긴다.
 		if (_isChargingIntro && introSuppressThreshold)
 		{
+			// 연출 정지 + 기본색으로만 전환
 			StopColorFx();
 			float tt = (defaultTransitionTime > 0f) ? defaultTransitionTime : colorFadeTime;
 			StopCoroutine(nameof(CoFadeFill));
 			StartCoroutine(CoFadeFill(_currentFillColor, defaultColor, tt));
+
+			// 충전 종료 후 첫 ApplyBarColor에서 FX를 반드시 재가동
+			_needRestartFxOnce = true;
 			return;
 		}
 
+		// 1) 현재 임계 구간 판정
 		int cur = currentHP;
-		int tier = -1;
+		int nextTier = -1;
 		Color target = defaultColor;
 
-		// 낮은 HP 임계가 우선되도록 선택
 		for (int i = 0; i < thresholds.Length; i++)
 		{
 			var th = thresholds[i];
 			if (th.hpLessEqual <= 0) continue;
-			if (cur <= th.hpLessEqual) { tier = i; target = th.color; }
+			if (cur <= th.hpLessEqual)
+			{
+				nextTier = i;
+				target = th.color;
+			}
 		}
 
-		// 변화시간: 임계 지정 > 기본 지정 > colorFadeTime
-		float trans = colorFadeTime;
-		if (tier >= 0 && thresholds[tier].transitionTime > 0f) trans = thresholds[tier].transitionTime;
-		else if (defaultTransitionTime > 0f) trans = defaultTransitionTime;
+		// 2) 같은 임계 구간이면(=색 스타일 동일) 아무 것도 하지 않음 → 그라/깜빡임 유지
+		//    단, 인트로 억제 직후 첫 1회는 반드시 재가동해야 하므로 예외 처리
+		if (!_needRestartFxOnce && nextTier == _lastTier)
+			return;
 
+		// 3) 여기로 왔다는 것은 '임계 구간이 바뀌었거나(처음 포함) 강제 재시작 필요'라는 뜻
+		//    → 이때만 페이드 및 FX 재가동을 수행
+		float trans = colorFadeTime;
+		if (nextTier >= 0 && thresholds[nextTier].transitionTime > 0f)
+			trans = thresholds[nextTier].transitionTime;
+		else if (defaultTransitionTime > 0f)
+			trans = defaultTransitionTime;
+
+		// 이전 연출 정지 후, 목표색으로 페이드
+		StopColorFx();
 		StopCoroutine(nameof(CoFadeFill));
 		StartCoroutine(CoFadeFill(_currentFillColor, target, trans));
 
-		// 임계 변경 시 1회성 효과
-		if (tier != _lastTier)
+		// 임계 변경 시 1회성 효과(SFX/FX/BGM)
+		if (nextTier != _lastTier)
 		{
-			if (tier >= 0)
+			if (nextTier >= 0)
 			{
-				var th = thresholds[tier];
+				var th = thresholds[nextTier];
 				if (audioSrc && th.sfx) audioSrc.PlayOneShot(th.sfx);
 				if (th.fx) Instantiate(th.fx, (actor ? actor.position : transform.position), Quaternion.identity);
 				if (th.bgmClip && th.bgmClip != _lastBgmClip)
@@ -317,13 +337,30 @@ public class BossBase : MonoBehaviour, IDamageable
 					_lastBgmClip = th.bgmClip;
 				}
 			}
-			_lastTier = tier;
+			_lastTier = nextTier;
 		}
 
-		// 상시 색 연출(그라데이션 우선 → 깜빡임)
-		if (tier >= 0) StartColorFx_FromThreshold(thresholds[tier]);
-		else StartColorFx_Default();
+		// 4) 상시 색 연출(그라데이션 우선 → 깜빡임) 시작
+		if (nextTier >= 0)
+		{
+			var th = thresholds[nextTier];
+			if (th.useGradient && IsValidGradient(th.gradientColors, th.gradientCycleSeconds))
+				_coGradient = StartCoroutine(CoGradient(th.gradientColors, th.gradientCycleSeconds));
+			else if (th.useBlink && IsValidBlink(th.blinkColors, th.blinkInterval))
+				_coBlink = StartCoroutine(CoBlink(th.blinkColors, th.blinkInterval));
+		}
+		else
+		{
+			if (defaultUseGradient && IsValidGradient(defaultGradientColors, defaultGradientCycleSeconds))
+				_coGradient = StartCoroutine(CoGradient(defaultGradientColors, defaultGradientCycleSeconds));
+			else if (defaultUseBlink && IsValidBlink(defaultBlinkColors, defaultBlinkInterval))
+				_coBlink = StartCoroutine(CoBlink(defaultBlinkColors, defaultBlinkInterval));
+		}
+
+		// 인트로 억제 뒤 재시작 플래그는 한 번만 사용하고 해제
+		_needRestartFxOnce = false;
 	}
+
 
 	// ───────── 색 연출 보조 ─────────
 	Coroutine _coGradient, _coBlink;
