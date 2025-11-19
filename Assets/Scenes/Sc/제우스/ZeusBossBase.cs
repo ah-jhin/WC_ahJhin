@@ -42,12 +42,16 @@ public class ZeusBossBase : BossBase
 	// ─────────────────────────────────────────────────────────
 
 	[Header("패턴1: 낙뢰(고정 위치)")]
-	[Tooltip("낙뢰가 떨어질 수 있는 고정 위치 포인트들(그룹 부모들).")]
+	[Tooltip("낙뢰 경고 포인트 그룹(각 그룹 자식에 실제 포인트가 있음).")]
 	public Transform[] pattern1_LightningPoints;
 	[Tooltip("경고가 표시된 후 실제 낙뢰가 떨어질 때까지 지연 시간(초).")]
 	public float pattern1_WarningDelay = 0.7f;
-	[Tooltip("패턴1 낙뢰 경고를 표시할 때 사용할 경고 프리팹(아이콘, 이펙트 등).")]
-	public GameObject pattern1_WarningPrefab;
+	[Tooltip("패턴1 전용 경고 프리팹")]
+	public GameObject pattern1_WarnPrefab;
+	[Tooltip("패턴1 낙뢰 공격 프리팹")]
+	public GameObject pattern1_AttackPrefab;
+	[Tooltip("패턴1에서 한 번에 떨어뜨릴 낙뢰 개수.")]
+	public int pattern1_LightningCount = 1;
 
 	[Header("패턴2: 돌진")]
 	[Tooltip("돌진 시작 전 경고가 유지되는 시간(초).")]
@@ -505,53 +509,76 @@ public class ZeusBossBase : BossBase
 
 	IEnumerator CoPattern1_LightningField()
 	{
-		Transform[] pointsInGroup = GetRandomGroupPoints(pattern1_LightningPoints);
-		if (pointsInGroup == null || pointsInGroup.Length == 0)
+		// 1) 그룹 중 하나 선택
+		Transform[] group = GetRandomGroupPoints(pattern1_LightningPoints);
+		if (group == null || group.Length == 0)
 		{
+			// 위치가 없으면 패턴 건너뛰기
 			yield return MoveAndWait();
 			yield break;
 		}
 
-		// 경고 SFX
-		PlaySfx(sfxP1_Warn);
+		// 2) 한 번에 떨어뜨릴 낙뢰 개수 (최소 1)
+		int N = Mathf.Max(1, pattern1_LightningCount);
 
-		// 경고 생성 + 자동 삭제
-		foreach (var p in pointsInGroup)
+		// 이 리스트에 "경고/공격이 떨어질 위치들"을 미리 저장해 둔다.
+		List<Transform> targets = new List<Transform>(N);
+
+		for (int i = 0; i < N; i++)
 		{
-			if (!p) continue;
 			if (ShouldStopPattern())
 				yield break;
 
-			if (pattern1_WarningPrefab)
+			Transform p = group[Random.Range(0, group.Length)];
+			if (p != null)
+				targets.Add(p);
+		}
+
+		// 3) 경고 SFX
+		PlaySfx(sfxP1_Warn);
+
+		// 4) 경고 프리팹 생성
+		foreach (var t in targets)
+		{
+			if (!t) continue;
+			if (ShouldStopPattern())
+				yield break;
+
+			if (pattern1_WarnPrefab)
 			{
-				var w = Instantiate(pattern1_WarningPrefab, p.position, Quaternion.identity);
-				Destroy(w, pattern1_WarningDelay + 0.5f);
+				var warn = Instantiate(pattern1_WarnPrefab, t.position, Quaternion.identity);
+				Destroy(warn, pattern1_WarningDelay + 0.5f);
 			}
 		}
 
-		float t = 0f;
-		while (t < pattern1_WarningDelay)
+		// 5) 경고 대기
+		float timer = 0f;
+		while (timer < pattern1_WarningDelay)
 		{
 			if (ShouldStopPattern())
 				yield break;
-			t += Time.deltaTime;
+
+			timer += Time.deltaTime;
 			yield return null;
 		}
 
-		// 공격 SFX
+		// 6) 공격 SFX
 		PlaySfx(sfxP1_Atk);
 
-		// 낙뢰 생성
-		foreach (var p in pointsInGroup)
+		// 7) 낙뢰 공격 생성 (경고와 같은 위치에)
+		foreach (var t in targets)
 		{
-			if (!p) continue;
+			if (!t) continue;
 			if (ShouldStopPattern())
 				yield break;
 
-			if (lightningAttackPrefab)
-				Instantiate(lightningAttackPrefab, p.position, Quaternion.identity);
+			if (pattern1_AttackPrefab)
+			{
+				Instantiate(pattern1_AttackPrefab, t.position, Quaternion.identity);
+			}
 		}
 
+		// 8) 패턴 종료 후 이동/대기
 		yield return MoveAndWait();
 	}
 

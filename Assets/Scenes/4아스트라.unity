@@ -18415,8 +18415,7 @@ MonoBehaviour:
   bossPrefab: {fileID: 0}
   sceneBossActor: {fileID: 899454273}
   moveSceneActorToSpawnPos: 1
-  skipInitialPlacement: 1
-  bossWorldPos: {x: -19.8, y: 10.8, z: 0}
+  bossWorldPos: {x: 0, y: 4.5, z: 0}
   bossBarRoot: {fileID: 1787125110}
   hpSlider: {fileID: 1787125111}
   hpText: {fileID: 1388617552}
@@ -18906,7 +18905,8 @@ MonoBehaviour:
     shakeFrequency: 50
   cameraRotateSFX: {fileID: 8300000, guid: 1e196a7c84352bb42b58466547d6bed6, type: 3}
   cameraSfxSource: {fileID: 1848770945}
-  randomMovePoints: []
+  randomMovePoints:
+  - {fileID: 1985727722}
   randomMoveGroupParents:
   - {fileID: 1648749112}
   - {fileID: 2092508532}
@@ -18921,7 +18921,7 @@ MonoBehaviour:
   p1_13_orbSpeed: 12
   p2_22_orbPrefab: {fileID: 7404576821323177126, guid: f32fcd0cd964bc44dbfc4108cf83af69, type: 3}
   p2_22_orbSpeed: 10
-  p2_23_orbPrefab: {fileID: 7404576821323177126, guid: bd6b78764f189104f85cd640a7f1c341, type: 3}
+  p2_23_orbPrefab: {fileID: 7404576821323177126, guid: 1d8afb8f4866b9846bd88452f2cbfb69, type: 3}
   p2_23_orbSpeed: 15
   p1_12_orbBatchSfx: {fileID: 8300000, guid: ec57e00894dcf82409f59e5f0a35548b, type: 3}
   p2_23_orbBatchSfx: {fileID: 8300000, guid: ec57e00894dcf82409f59e5f0a35548b, type: 3}
@@ -18974,11 +18974,11 @@ MonoBehaviour:
   - {fileID: 424077876}
   - {fileID: 471903410}
   p3_orbPrefab: {fileID: 7404576821323177126, guid: d630aa2bd45f9054290956c5edfb8ec0, type: 3}
-  p3_orbSpeed: 10
-  p3_orbDelayToChase: 1
+  p3_orbSpeed: 5
+  p3_orbDelayToChase: 0.5
   p3_orbAimAccuracy: 0.11
-  p3_spawnInterval: 0.3
-  p3_patternLoopDelay: 0.3
+  p3_spawnInterval: 0.2
+  p3_patternLoopDelay: 0.2
   p3_cameraRotateSpeed: 8
   patternSfxSource: {fileID: 1848770945}
   patternSfxCooldown: 0.05
@@ -20485,7 +20485,7 @@ MonoBehaviour:
   prefab: {fileID: 3746291733466357458, guid: 082ee90d0f9a73d45ad7f770c90e3d7a, type: 3}
   preload: 50
   colAttack: {r: 1, g: 1, b: 1, a: 1}
-  colWeak: {r: 0, g: 1, b: 0.9416926, a: 1}
+  colWeak: {r: 1, g: 0.97088087, b: 0, a: 1}
   colHit: {r: 1, g: 0, b: 0, a: 1}
   colHeal: {r: 0.4, g: 1, b: 0.4, a: 1}
 --- !u!1001 &2018492292

@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::pain
   minDamage: 5
   maxDamage: 15
-  knockback: 15
+  knockback: 0
   localInvincible: 0.4
   destroyOnTouch: 0
   touchPrefab: {fileID: 0}

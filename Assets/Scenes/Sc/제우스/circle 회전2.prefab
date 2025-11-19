@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2884434095308636129}
   - component: {fileID: 6997187817768561078}
-  - component: {fileID: 8418933630794693764}
   - component: {fileID: 1923198813835468120}
   - component: {fileID: 8643374138732631002}
   - component: {fileID: -5394155629401564669}
+  - component: {fileID: 488252861374451184}
   m_Layer: 7
   m_Name: "circle \uD68C\uC8042"
   m_TagString: Untagged
@@ -94,42 +94,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &8418933630794693764
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1545018622293385053}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 8
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 8
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 2.555
 --- !u!82 &1923198813835468120
 AudioSource:
   m_ObjectHideFlags: 0
@@ -248,7 +212,7 @@ MonoBehaviour:
   touchVFX: {fileID: 0}
   touchSFX: {fileID: 0}
   useGravity: 1
-  gravityScale: 1
+  gravityScale: 0.4
   checkBlockCollision: 1
   destroyOnBlock: 1
   blockHitPrefab: {fileID: 0}
@@ -261,7 +225,7 @@ MonoBehaviour:
   inertiaValue: 1
   increaseSize: 0
   autoDespawn: 1
-  despawnAfter: 20
+  despawnAfter: 10
   despawnPrefab: {fileID: 0}
   despawnVFX: {fileID: 0}
   despawnSFX: {fileID: 0}
@@ -281,4 +245,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ZeusBulletMover
   initialVelocity: {x: 0, y: 0}
   useGravity: 1
-  lifeTime: 15
+  lifeTime: 10
+--- !u!70 &488252861374451184
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545018622293385053}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 5.11, y: 5.1099997}
+  m_Direction: 0

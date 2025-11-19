@@ -31,8 +31,6 @@ public class BossSequenceController : MonoBehaviour
 	[Tooltip("SceneObject 모드에서 지정 좌표로 이동할지 여부")]
 	public bool moveSceneActorToSpawnPos = true;
 	[SerializeField, Tooltip("외부(랜덤 스폰 등)가 이미 배치했으면 초기 위치 설정을 건너뜀")]
-	private bool skipInitialPlacement = true;
-	[Tooltip("보스 소환 월드 좌표")]
 	public Vector3 bossWorldPos = new Vector3(8, 2, 0);
 
 	// 내부 참조
@@ -145,6 +143,15 @@ public class BossSequenceController : MonoBehaviour
 	// ───────────────────────────────────────────────────────
 	void Awake()
 	{
+		// DontDestroyOnLoad 씬(전역 컨트롤러)에 붙은 BossSequenceController 는
+		// 실제 스테이지 보스 소환에 사용하지 않는다.
+		// → Q 입력을 받아도 아무것도 하지 않게 스크립트 자체를 비활성화한다.
+		if (gameObject.scene.name == "DontDestroyOnLoad")
+		{
+			enabled = false;   // Update / SpawnBossOnce 등 전부 호출되지 않음
+			return;
+		}
+
 		// 씬의 Controller 오브젝트에 존재하는 BossBase
 		boss = GetComponent<BossBase>();
 
@@ -152,6 +159,7 @@ public class BossSequenceController : MonoBehaviour
 		if (spawnMode == SpawnMode.SceneObject && sceneBossActor)
 			sceneBossActor.SetActive(false);
 	}
+
 
 	void OnEnable()
 	{
@@ -164,12 +172,16 @@ public class BossSequenceController : MonoBehaviour
 		SceneManager.sceneLoaded -= OnSceneLoaded;
 		if (bgmSource) bgmSource.Stop();   // 잔류 BGM 방지
 	}
-
 	void Update()
 	{
+		// Q 키를 한 번 눌렀을 때만 보스 소환을 시도한다.
+		// - spawned == true 인 경우에는 이미 스폰된 상태이므로 다시 소환하지 않는다.
 		if (!spawned && Input.GetKeyDown(KeyCode.Q))
+		{
 			SpawnBossOnce();
+		}
 	}
+
 
 	// 스폰 1회 처리
 	void SpawnBossOnce()
@@ -189,12 +201,27 @@ public class BossSequenceController : MonoBehaviour
 				break;
 
 			case SpawnMode.SceneObject:
-				if (!sceneBossActor) { Debug.LogError("[BossSeq] sceneBossActor 미지정"); spawned = false; return; }
+				if (!sceneBossActor)
+				{
+					// DontDestroyOnLoad 같은 전역 컨트롤러에서 잘못 호출된 경우:
+					// - 실제 보스를 담당하지 않으므로, 에러를 찍지 말고 조용히 무시한다.
+					if (gameObject.scene.name == "DontDestroyOnLoad")
+					{
+						spawned = false;   // 이 인스턴스는 여전히 '미스폰' 상태로 유지
+						return;            // 그냥 아무 일도 하지 않고 빠져나간다.
+					}
+
+					// 그 외에는 진짜 세팅 실수이므로 에러 로그를 남긴다.
+					Debug.LogError("[BossSeq] sceneBossActor 미지정");
+					spawned = false;
+					return;
+				}
+
+				// 여기까지 왔다는 것은:
+				// - SceneObject 모드이고
+				// - sceneBossActor 가 정상적으로 할당된 '실제 보스' 인스턴스라는 뜻이다.
 				currentActor = sceneBossActor.transform;
-
-				if (moveSceneActorToSpawnPos && !skipInitialPlacement)
-					currentActor.position = bossWorldPos;
-
+				if (moveSceneActorToSpawnPos) currentActor.position = bossWorldPos;
 				sceneBossActor.SetActive(true);  // 여기서 활성화
 				break;
 		}

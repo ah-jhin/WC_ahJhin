@@ -25,5 +25,5 @@ MonoBehaviour:
   bulletSpeed: 20
   bulletLifetime: 0.8
   infiniteAmmo: 0
-  ammoInitial: 100
+  ammoInitial: 120
   sfxShoot: {fileID: 8300000, guid: abcede42a63a6ee468eeff097aa9be49, type: 3}

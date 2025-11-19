@@ -22,7 +22,7 @@ MonoBehaviour:
   bulletsPerShot: 15
   spreadDeg: 25
   bulletPrefab: {fileID: 6785224070344415373, guid: d509738d6891a394f88cdaef809f1910, type: 3}
-  bulletSpeed: 16
+  bulletSpeed: 17
   bulletLifetime: 0.25
   infiniteAmmo: 0
   ammoInitial: 12
